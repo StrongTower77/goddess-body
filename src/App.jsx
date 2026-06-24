@@ -1384,7 +1384,7 @@ export default function GoddessBody() {
           <div style={{background:"rgba(232,132,154,0.07)",border:"1px solid rgba(232,132,154,0.25)",borderRadius:10,padding:"10px 14px",marginBottom:14,display:"flex",gap:8}}>
             <span style={{flexShrink:0}}>🎯</span>
             <p style={{fontSize:11,color:"#d4a0b0",lineHeight:1.7}}>
-              <strong style={{color:PINK}}>Goal:</strong> Weight gain + toning — 133 → 150 lbs of lean muscle. Abs, glutes, thighs. Teyana Taylor physique.
+              <strong style={{color:PINK}}>Goal:</strong> Weight gain + toning — 133 → 150 lbs of lean muscle. Abs, glutes, thighs. Teyana Taylor + Kehlani physique.
               Built around PT (M/W/F) + Yoga + 3 strength sessions/week. Fibromyalgia-safe. Shoulder-protected. Whole foods.
             </p>
           </div>
@@ -1901,7 +1901,7 @@ export default function GoddessBody() {
             {/* ── VISION BOARD ── */}
             <div style={{background:"#140618",border:"1px solid #3a1a4a",borderRadius:14,padding:18,marginBottom:12}}>
               <h3 style={{fontSize:14,fontWeight:600,color:PINK,marginBottom:4}}>📸 Vision Board — Your Physique Goal</h3>
-              <p style={{fontSize:11,color:"#5a3a6a",marginBottom:14,lineHeight:1.6}}>Teyana Taylor physique — abs, glutes, thighs, lean arms. This is what 30 days of intentional training + nutrition is building toward.</p>
+              <p style={{fontSize:11,color:"#5a3a6a",marginBottom:14,lineHeight:1.6}}>Teyana Taylor + Kehlani physique — abs, glutes, thighs, lean arms. This is what 30 days of intentional training + nutrition is building toward.</p>
               <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8}}>
                 {["/ref1.png","/ref2.png","/ref3.png","/ref4.png","/ref5.png","/ref6.png"].map((src,i)=>(
                   <div key={i} style={{borderRadius:10,overflow:"hidden",border:"1px solid #3a1a4a",aspectRatio:"3/4",background:"#0a0312",position:"relative"}}>
@@ -1932,7 +1932,7 @@ export default function GoddessBody() {
                 "All upper body work is pulling (lat pulldown, rows) or arms-down pushing (tricep pushdown). These build upper body definition without loading the shoulder joint overhead.",
                 "If anything causes sharp shoulder pain — stop immediately. Dull muscle fatigue is normal. Sharp joint pain is not.",
                 "Tell your PT specifically which upper body exercises you're doing. They may have additional modifications based on your specific injury pattern.",
-                "The reference photos you shared are achievable without overhead pressing. Teyana Taylor's arms come from rows, curls, and core work — not overhead pressing.",
+                "The reference photos you shared are achievable without overhead pressing. Teyana Taylor and Kehlani's arms come from rows, curls, and core work — not overhead pressing.",
               ]},
               {title:"🍑 Why 133 → 150 lbs Works",color:PLUM,items:[
                 "You are building MUSCLE, not just losing fat. This is a caloric SURPLUS plan — you should be eating more than before, not less. Under-eating on a muscle-building plan produces no results.",
