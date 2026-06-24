@@ -1251,8 +1251,33 @@ const DN = {
 const MEAL_COLORS = ["#c9a84c","#7a9b76","#e8849a","#b06ac8","#74b3ce"];
 
 /* ════════════ COMPONENT ════════════ */
+/* ── Access Code (change this to update the client password) ── */
+const AUTH_CODE = "gLoVe060626";
+const AUTH_KEY  = "gb-auth-v1";
+
 export default function GoddessBody() {
   const [tab,       setTab]       = useState("plan");
+
+  /* ── Auth state ── */
+  const [isAuth,    setIsAuth]    = useState(() => {
+    try { return localStorage.getItem(AUTH_KEY) === "true"; } catch { return false; }
+  });
+  const [authInput, setAuthInput] = useState("");
+  const [authError, setAuthError] = useState(false);
+  const [authShake, setAuthShake] = useState(false);
+
+  const handleAuth = () => {
+    if (authInput.trim().toLowerCase() === AUTH_CODE.toLowerCase()) {
+      try { localStorage.setItem(AUTH_KEY, "true"); } catch {}
+      setIsAuth(true);
+    } else {
+      setAuthError(true);
+      setAuthShake(true);
+      setTimeout(() => setAuthShake(false), 600);
+      setTimeout(() => setAuthError(false), 2500);
+      setAuthInput("");
+    }
+  };
   const [gymMode,   setGymMode]   = useState(true);
   const [selDay,    setSelDay]    = useState(null);
   const [openWeek,  setOpenWeek]  = useState(1);
@@ -1358,6 +1383,38 @@ export default function GoddessBody() {
   const SAGE   = "#7A9B76";
   const PINK   = "#E8849A";
   const GOLD   = "#C9A84C";
+
+  if (!isAuth) return (
+    <div style={{minHeight:"100vh",background:"#0a0312",display:"flex",alignItems:"center",justifyContent:"center",padding:"24px",fontFamily:"'Jost',sans-serif"}}>
+      <style>{`@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}`}</style>
+      <div style={{width:"100%",maxWidth:380,display:"flex",flexDirection:"column",alignItems:"center"}}>
+        <img src="/logo.png" alt="Goddess Body" style={{width:90,height:90,borderRadius:18,objectFit:"cover",marginBottom:24,boxShadow:"0 8px 32px rgba(139,47,168,0.4)"}}/>
+        <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,letterSpacing:6,color:GOLD,textTransform:"uppercase",marginBottom:8}}>Martyy B Media · M.J. Colbert</p>
+        <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:600,color:"#f0ebe0",marginBottom:4,textAlign:"center",lineHeight:1.1}}>Goddess Body</h1>
+        <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontStyle:"italic",color:PINK,marginBottom:36}}>Fitness Plan</p>
+        <div style={{width:"100%",animation:authShake?"shake 0.5s ease":"none"}}>
+          <input type="password" placeholder="Enter your access code" value={authInput}
+            onChange={e=>setAuthInput(e.target.value)}
+            onKeyDown={e=>e.key==="Enter"&&handleAuth()}
+            style={{width:"100%",padding:"14px 18px",background:"rgba(255,255,255,0.05)",
+              border:authError?"1px solid #E8849A":"1px solid #3a1a4a",
+              borderRadius:12,color:"#f0ebe0",fontSize:15,
+              fontFamily:"'Jost',sans-serif",letterSpacing:2,outline:"none",
+              boxSizing:"border-box",marginBottom:8,textAlign:"center"}}/>
+          {authError&&<p style={{color:PINK,fontSize:12,textAlign:"center",marginBottom:8}}>Incorrect access code. Try again.</p>}
+        </div>
+        <button onClick={handleAuth} style={{width:"100%",padding:"14px 0",marginTop:4,
+          background:`linear-gradient(135deg,${GOLD},#a8883a)`,border:"none",borderRadius:12,
+          color:"#0a0312",fontFamily:"'Jost',sans-serif",fontWeight:700,fontSize:15,
+          letterSpacing:0.5,cursor:"pointer",boxShadow:"0 4px 20px rgba(201,168,76,0.35)"}}>
+          👑 Enter
+        </button>
+        <p style={{fontSize:10,color:"#3a1a4a",marginTop:24,letterSpacing:1,textTransform:"uppercase",textAlign:"center"}}>
+          Private · Custom Plan · Coco Love The Goddess
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <div style={{background:"#0a0312",minHeight:"100vh",fontFamily:"'Jost',sans-serif",color:"#e2ddd3"}}>
@@ -1976,5 +2033,7 @@ export default function GoddessBody() {
 
       </div>
     </div>
+    )}
+    </>
   );
 }
