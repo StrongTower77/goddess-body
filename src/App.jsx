@@ -2670,6 +2670,7 @@ export default function GoddessBody() {
   const [authInput, setAuthInput] = useState("");
   const [authError, setAuthError] = useState(false);
   const [authShake, setAuthShake] = useState(false);
+  const [showPass,  setShowPass]  = useState(false);
 
   const handleAuth = () => {
     if (authInput.trim().toLowerCase() === AUTH_CODE.toLowerCase()) {
@@ -2810,14 +2811,25 @@ export default function GoddessBody() {
         <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:600,color:"#f0ebe0",marginBottom:4,textAlign:"center",lineHeight:1.1}}>Goddess Body</h1>
         <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontStyle:"italic",color:PINK,marginBottom:36}}>Fitness Plan</p>
         <div style={{width:"100%",animation:authShake?"shake 0.5s ease":"none"}}>
-          <input type="password" placeholder="Enter your access code" value={authInput}
-            onChange={e=>setAuthInput(e.target.value)}
-            onKeyDown={e=>e.key==="Enter"&&handleAuth()}
-            style={{width:"100%",padding:"14px 18px",background:"rgba(255,255,255,0.05)",
-              border:authError?"1px solid #E8849A":"1px solid #3a1a4a",
-              borderRadius:12,color:"#f0ebe0",fontSize:15,
-              fontFamily:"'Jost',sans-serif",letterSpacing:2,outline:"none",
-              boxSizing:"border-box",marginBottom:8,textAlign:"center"}}/>
+          <div style={{position:"relative",width:"100%",marginBottom:8}}>
+            <input type={showPass?"text":"password"} placeholder="Enter your access code" value={authInput}
+              onChange={e=>setAuthInput(e.target.value)}
+              onKeyDown={e=>e.key==="Enter"&&handleAuth()}
+              style={{width:"100%",padding:"14px 48px 14px 18px",background:"rgba(255,255,255,0.05)",
+                border:authError?"1px solid #E8849A":"1px solid #3a1a4a",
+                borderRadius:12,color:"#f0ebe0",fontSize:15,
+                fontFamily:"'Jost',sans-serif",letterSpacing:2,outline:"none",
+                boxSizing:"border-box",textAlign:"center"}}/>
+            <button onClick={()=>setShowPass(p=>!p)}
+              style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",
+                background:"none",border:"none",cursor:"pointer",padding:4,
+                color:showPass?"#C9A84C":"#5a3a6a",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              {showPass
+                ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              }
+            </button>
+          </div>
           {authError&&<p style={{color:PINK,fontSize:12,textAlign:"center",marginBottom:8}}>Incorrect access code. Try again.</p>}
         </div>
         <button onClick={handleAuth} style={{width:"100%",padding:"14px 0",marginTop:4,
