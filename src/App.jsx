@@ -3483,9 +3483,8 @@ export default function GoddessBody() {
         </div>
 
       </div>
-    </div>
 
-    {/* ── LIGHTBOX MODAL ── */}
+      {/* ── LIGHTBOX MODAL ── */}
     {lightbox&&(
       <div className="lightbox-overlay"
         onClick={()=>setLightbox(null)}
@@ -3515,5 +3514,6 @@ export default function GoddessBody() {
         </div>
       </div>
     )}
+    </div>
   );
 }
