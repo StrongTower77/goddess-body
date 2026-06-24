@@ -13,6 +13,13 @@ const STYLE_TAG = `
   .toggle-pill{transition:all 0.25s;}
   .flare-btn{transition:all 0.2s;}
   .flare-btn:hover{opacity:0.85!important;}
+  .ref-photo{transition:transform 0.35s cubic-bezier(.25,.8,.25,1),box-shadow 0.35s,filter 0.35s;cursor:pointer;filter:brightness(0.88) saturate(0.95);}
+  .ref-photo:hover{transform:scale(1.04);filter:brightness(1.06) saturate(1.1);box-shadow:0 8px 32px rgba(201,168,76,0.35);}
+  @keyframes fadeInScale{from{opacity:0;transform:scale(0.82)}to{opacity:1;transform:scale(1)}}
+  @keyframes fadeOutScale{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(0.88)}}
+  @keyframes lightboxBg{from{opacity:0}to{opacity:1}}
+  .lightbox-overlay{animation:lightboxBg 0.3s ease forwards;}
+  .lightbox-img{animation:fadeInScale 0.4s cubic-bezier(.25,.8,.25,1) forwards;}
 `;
 
 /* ── Type styles: Deep Plum · Sage Green · Pink · Gold ── */
@@ -2671,6 +2678,7 @@ export default function GoddessBody() {
   const [authError, setAuthError] = useState(false);
   const [authShake, setAuthShake] = useState(false);
   const [showPass,  setShowPass]  = useState(false);
+  const [lightbox,  setLightbox]  = useState(null);
 
   const handleAuth = () => {
     if (authInput.trim().toLowerCase() === AUTH_CODE.toLowerCase()) {
@@ -3393,15 +3401,19 @@ export default function GoddessBody() {
               <p style={{fontSize:11,color:"#5a3a6a",marginBottom:14,lineHeight:1.6}}>Teyana Taylor + Kehlani physique — abs, glutes, thighs, lean arms. This is what 30 days of intentional training + nutrition is building toward.</p>
               <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8}}>
                 {["/ref1.png","/ref2.png","/ref3.png","/ref4.png","/ref5.png","/ref6.png"].map((src,i)=>(
-                  <div key={i} style={{borderRadius:10,overflow:"hidden",border:"1px solid #3a1a4a",aspectRatio:"3/4",background:"#0a0312",position:"relative"}}>
+                  <div key={i} className="ref-photo"
+                    onClick={()=>setLightbox(src)}
+                    style={{borderRadius:10,overflow:"hidden",border:"1px solid #3a1a4a",aspectRatio:"3/4",background:"#0a0312",position:"relative"}}>
                     <img src={src} alt={"Reference "+(i+1)}
-                      style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}
+                      style={{width:"100%",height:"100%",objectFit:"cover",display:"block",pointerEvents:"none"}}
                       onError={e=>{e.target.style.display="none";e.target.nextSibling.style.display="flex";}}
                     />
                     <div style={{display:"none",position:"absolute",inset:0,alignItems:"center",justifyContent:"center",flexDirection:"column",gap:4}}>
                       <span style={{fontSize:22}}>📷</span>
                       <span style={{fontSize:9,color:"#3a1a4a",letterSpacing:1}}>REF {i+1}</span>
                     </div>
+                    {/* Hover shine overlay */}
+                    <div style={{position:"absolute",inset:0,background:"linear-gradient(135deg,rgba(201,168,76,0.08),transparent 60%)",pointerEvents:"none",borderRadius:10}}/>
                   </div>
                 ))}
               </div>
@@ -3472,5 +3484,36 @@ export default function GoddessBody() {
 
       </div>
     </div>
+
+    {/* ── LIGHTBOX MODAL ── */}
+    {lightbox&&(
+      <div className="lightbox-overlay"
+        onClick={()=>setLightbox(null)}
+        style={{position:"fixed",inset:0,zIndex:9999,
+          background:"rgba(4,1,10,0.92)",
+          display:"flex",alignItems:"center",justifyContent:"center",
+          padding:"20px",backdropFilter:"blur(8px)",WebkitBackdropFilter:"blur(8px)"}}>
+        <div onClick={e=>e.stopPropagation()}
+          style={{position:"relative",maxWidth:"92vw",maxHeight:"90vh",display:"flex",flexDirection:"column",alignItems:"center",gap:12}}>
+          <img src={lightbox} alt="Reference" className="lightbox-img"
+            style={{maxWidth:"100%",maxHeight:"82vh",objectFit:"contain",
+              borderRadius:16,boxShadow:"0 24px 80px rgba(0,0,0,0.8), 0 0 60px rgba(201,168,76,0.12)"}}
+          />
+          <div style={{display:"flex",alignItems:"center",gap:16}}>
+            <p style={{fontSize:10,color:"rgba(201,168,76,0.6)",letterSpacing:2,textTransform:"uppercase",fontFamily:"'Jost',sans-serif"}}>
+              Physique Goal · Teyana Taylor + Kehlani
+            </p>
+          </div>
+          <button onClick={()=>setLightbox(null)}
+            style={{position:"absolute",top:-14,right:-14,width:36,height:36,
+              borderRadius:"50%",background:"rgba(201,168,76,0.15)",
+              border:"1px solid rgba(201,168,76,0.3)",color:GOLD,
+              fontSize:18,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",
+              fontFamily:"'Jost',sans-serif",lineHeight:1}}>
+            ×
+          </button>
+        </div>
+      </div>
+    )}
   );
 }
