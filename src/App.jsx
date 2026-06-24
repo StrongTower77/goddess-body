@@ -31,13 +31,49 @@ const TS = {
   "Full Body Peak":         {bg:"#1a140a",border:"#5a4a1a",badge:"#c9a84c",icon:"⚡"},
   "PT + Yoga":              {bg:"#0a180c",border:"#2a5a30",badge:"#7a9b76",icon:"🧘🏾"},
   "REST":                   {bg:"#131313",border:"#2a2a2a",badge:"#666",   icon:"😴"},
+  /* ── Phase 2 types ── */
+  "Lower Body Supersets":   {bg:"#1a0428",border:"#7a1a5a",badge:"#D4649A",icon:"🍑"},
+  "Core + Pull Circuit":    {bg:"#0a1a0e",border:"#1a6a3a",badge:"#7AC88A",icon:"💪🏾"},
+  "Full Body Burn":         {bg:"#1a1408",border:"#5a4018",badge:"#D4A84C",icon:"⚡"},
+  "Glute + Hamstring":      {bg:"#200418",border:"#8a1a68",badge:"#F04AA0",icon:"🍑"},
+  "Arms + Core Advanced":   {bg:"#0a1a14",border:"#1a7a4a",badge:"#6ACE8A",icon:"💪🏾"},
+  "Full Body Tabata":       {bg:"#1a1208",border:"#7a4a18",badge:"#E8A84C",icon:"⚡"},
+  "Heavy Lower Body":       {bg:"#240420",border:"#9a1a78",badge:"#F060B8",icon:"🍑"},
+  "Back + Core Circuit":    {bg:"#041a10",border:"#2a7a4a",badge:"#4ACA7A",icon:"💪🏾"},
+  "Full Body AMRAP":        {bg:"#1a1608",border:"#6a5018",badge:"#EAC04C",icon:"⚡"},
+  "Core + Arms Peak II":    {bg:"#081a10",border:"#1a8a5a",badge:"#4AD87A",icon:"💪🏾"},
+  "Full Body Breakthrough":  {bg:"#18160a",border:"#7a6020",badge:"#D4B44C",icon:"⚡"},
+  "Lower Body P2 Finale":   {bg:"#220618",border:"#9a1a78",badge:"#F050B8",icon:"🍑"},
+  /* ── Phase 3 types ── */
+  "Lower Body Mastery":      {bg:"#200420",border:"#8a1888",badge:"#D050C8",icon:"🍑"},
+  "Core Mastery":            {bg:"#041c10",border:"#1a8a50",badge:"#40D880",icon:"💪🏾"},
+  "Full Body Mastery":       {bg:"#1c1808",border:"#8a6820",badge:"#E0C04C",icon:"⚡"},
+  "Upper Body Legacy":       {bg:"#041818",border:"#1a7878",badge:"#40C8C8",icon:"💪🏾"},
+  "Full Body Legacy":        {bg:"#1c1a08",border:"#8a7020",badge:"#E0CC4C",icon:"⚡"},
+  "Lower Body Transformation":{bg:"#240420",border:"#9a1890",badge:"#E050D8",icon:"🍑"},
+  "Core Transformation":     {bg:"#041e14",border:"#1a9058",badge:"#38D888",icon:"💪🏾"},
+  "Full Body Transformation": {bg:"#1e1c08",border:"#9a7820",badge:"#E8D050",icon:"⚡"},
+  "Lower Body Ascension":    {bg:"#200228",border:"#8808A8",badge:"#B840E8",icon:"🍑"},
+  "Core + Arms Ascension":   {bg:"#041e18",border:"#0a9878",badge:"#20D8B8",icon:"💪🏾"},
+  "Full Body Goddess":       {bg:"#201808",border:"#C9A84C",badge:"#F0D460",icon:"👑"},
 };
 
 const weekMeta = [
-  {num:1,theme:"Foundation",dates:"Jun 24–30"},
-  {num:2,theme:"Build",     dates:"Jul 1–7"},
-  {num:3,theme:"Strength",  dates:"Jul 8–14"},
-  {num:4,theme:"Peak",      dates:"Jul 15–23"},
+  /* Phase 1 */
+  {num:1, theme:"Foundation",   dates:"Jun 24–30",  phase:1},
+  {num:2, theme:"Build",        dates:"Jul 1–7",    phase:1},
+  {num:3, theme:"Strength",     dates:"Jul 8–14",   phase:1},
+  {num:4, theme:"Peak",         dates:"Jul 15–23",  phase:1},
+  /* Phase 2 */
+  {num:5, theme:"Power Rising", dates:"Jul 24–30",  phase:2},
+  {num:6, theme:"Building",     dates:"Jul 31–Aug 6",phase:2},
+  {num:7, theme:"Surge",        dates:"Aug 7–13",   phase:2},
+  {num:8, theme:"Breakthrough", dates:"Aug 14–22",  phase:2},
+  /* Phase 3 */
+  {num:9, theme:"Mastery",      dates:"Aug 23–29",  phase:3},
+  {num:10,theme:"Legacy",       dates:"Aug 30–Sep 5",phase:3},
+  {num:11,theme:"Transformation",dates:"Sep 6–12",  phase:3},
+  {num:12,theme:"Ascension",    dates:"Sep 13–21",  phase:3},
 ];
 
 /* ── Line type classifier ── */
@@ -107,10 +143,19 @@ const CARDIO_POOLS = {
 };
 
 const getCardioGroup = (type) => {
-  if(["Lower Body + Glutes","Lower Body Build","Lower Body Power","Lower Body Peak","Lower Body Celebration"].includes(type)) return "lower";
-  if(["Core + Upper Body","Core + Arms","Core + Arms Peak"].includes(type)) return "core";
-  if(["Full Body Circuit","Full Body + Stairmaster","Full Body Strength","Full Body Peak"].includes(type)) return "fullbody";
-  if(["PT + Yoga"].includes(type)) return "yoga";
+  const lower = ["Lower Body + Glutes","Lower Body Build","Lower Body Power","Lower Body Peak","Lower Body Celebration",
+    "Lower Body Supersets","Glute + Hamstring","Heavy Lower Body","Lower Body P2 Finale",
+    "Lower Body Mastery","Lower Body Legacy","Lower Body Transformation","Lower Body Ascension"];
+  const core  = ["Core + Upper Body","Core + Arms","Core + Arms Peak",
+    "Core + Pull Circuit","Arms + Core Advanced","Back + Core Circuit","Core + Arms Peak II",
+    "Core Mastery","Upper Body Legacy","Core Transformation","Core + Arms Ascension"];
+  const full  = ["Full Body Circuit","Full Body + Stairmaster","Full Body Strength","Full Body Peak",
+    "Full Body Burn","Full Body Tabata","Full Body AMRAP","Full Body Breakthrough",
+    "Full Body Mastery","Full Body Legacy","Full Body Transformation","Full Body Goddess"];
+  if(lower.includes(type)) return "lower";
+  if(core.includes(type))  return "core";
+  if(full.includes(type))  return "fullbody";
+  if(type === "PT + Yoga") return "yoga";
   return "rest";
 };
 
@@ -873,8 +918,801 @@ const allDays = [
         "Supported chair squat × 8",
         "Lying hip hinge — 2×10",
         "Savasana — 10 min",
-        "You completed 30 days. That is the victory."],
- flareTip:"Final day flare protocol. Whether you did the full session or this gentle version — you completed 30 days. The Goddess Body is built on consistency over perfection. You did it."},
+        "You completed Phase 1. That is the foundation."],
+ flareTip:"Phase 1 finale flare protocol. Whether you did the full session or this gentle version — 30 days complete. The Goddess Body is built on consistency over perfection. You did it. Phase 2 begins tomorrow."},
+
+/* ─────────────────────────────────────────────────────────
+   PHASE 2 — RISING  (Days 31–60 · Jul 24 – Aug 22)
+   Supersets · Progressive Overload · Longer Cardio · 4 Sets
+──────────────────────────────────────────────────────────── */
+
+/* ── WEEK 5: POWER RISING ── */
+{date:"Jul 24",wd:"Fri",week:5,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — hip circles, pigeon, warrior flow","PT session — update your therapist: Phase 2 starts today. Supersets incoming.","Tell your PT: glutes, hamstrings, and back are your focus zones","Focus: hip flexor release, hamstring lengthening, shoulder mobility work"],cardio:"Easy walk to/from PT",tip:"Phase 2 starts today. The foundation you built in 30 days is the floor — now we build the walls. Come Saturday locked in."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — hip circles, pigeon, warrior flow","Tell your PT: you're entering Phase 2 today — supersets begin Saturday","Focus: hip mobility, glute activation, shoulder range of motion"],cardio:"Easy walk",tip:"Phase 2 starts today. 30 days of discipline built the base. Saturday we start stacking."}},
+
+{date:"Jul 25",wd:"Sat",week:5,type:"Lower Body Supersets",workout:true,
+ gym:{yoga:"Sun salutation × 5 + pigeon pose 2 min each side — hips primed",ex:["SUPERSET A — 4 rounds · 90s rest between rounds:",
+  "• Leg Press 4×15 — add 10–20 lbs from Phase 1 peak",
+  "• Barbell Hip Thrust 4×15 — 1s pause + squeeze at top",
+  "SUPERSET B — 3 rounds · 60s rest:",
+  "• Romanian Deadlift 3×12 — 3-count eccentric · feel hamstrings load",
+  "• Bulgarian Split Squat 3×10 each — back foot on bench",
+  "Cable Pull-Through 3×15 — hinge · glute squeeze at lockout",
+  "Seated Leg Curl 3×12 — control the negative"],
+  cardio:"Stairmaster 22 min — 2 min moderate, 1 min push × 7",
+  tip:"Supersets start now. You're doing twice the work in the same time. Saturday you'll feel muscles working differently — that's the signal. Tuesday we hit back and arms."},
+ home:{yoga:"Sun salutation × 5 + pigeon pose 2 min each side",ex:["SUPERSET A — 4 rounds · 90s rest:",
+  "• Kettlebell Sumo Squat 4×15 — heaviest bell",
+  "• Couch Hip Thrust 4×15 — add backpack weight on hips",
+  "SUPERSET B — 3 rounds · 60s rest:",
+  "• Single-Leg RDL 3×10 each — hinge, slight bend in knee",
+  "• Reverse Lunge 3×12 each — controlled descent",
+  "Resistance Band Glute Bridge 3×20 — band above knees",
+  "Donkey Kickback (band) 3×15 each — full extension"],
+  cardio:"Jump rope or high knees — 40s on, 20s off × 15 rounds",
+  tip:"Supersets start now. The kettlebell and couch become power tools. Tuesday we hit back and arms."},
+ flare:["🧘🏾 Yin yoga — pigeon, butterfly, dragon pose (2 min each)","🌸 Legs up the wall 10 min — reduces inflammation","💛 Gentle hip circles lying down — 10 each direction","• Easy 15 min walk at flat pace"],
+ flareTip:"Supersets can wait — your body is telling you something. Gentle movement today keeps the momentum without the cost. Saturday energy carries into next session.",
+ note:"Day 32 · Phase 2 Session 1. Supersets begin. Same muscles, double the stimulus."},
+
+{date:"Jul 26",wd:"Sun",week:5,type:"REST",workout:false,
+ gym:{ex:["Rest completely — your glutes just got hit with supersets for the first time","Anti-inflammatory priority: turmeric, tart cherry, water","Optional: 15 min gentle walk, nothing more"],cardio:"None",tip:"Your body is processing a new training stimulus. Feed it. Rest it. Come Monday ready."},
+ home:{ex:["Rest completely — your glutes just got hit with supersets for the first time","Anti-inflammatory priority: turmeric, tart cherry, water","Optional: 15 min gentle walk, nothing more"],cardio:"None",tip:"Your body is processing a new training stimulus. Feed it. Rest it. Come Monday ready."},
+ note:"Rest Day. Phase 2, Week 5. Rebuild between sessions."},
+
+{date:"Jul 27",wd:"Mon",week:5,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — emphasis on hamstring and glute recovery","PT session — your glutes are sore from Saturday. Tell your therapist.","Focus: IT band release, hip flexor stretch, lumbar decompression","Ask about glute activation techniques that complement superset training"],cardio:"Easy walk",tip:"PT today is doing active recovery work. Tuesday is back and pull — arrive with loose hips and open shoulders."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — hamstring and glute recovery flow","PT session — mention Saturday's superset training","Focus: hip flexor release, gentle spinal decompression"],cardio:"Easy walk",tip:"PT today primes Tuesday's pull session. Arrive with loose hips."}},
+
+{date:"Jul 28",wd:"Tue",week:5,type:"Core + Pull Circuit",workout:true,
+ gym:{yoga:"Flow: downward dog → upward dog × 8, cat-cow × 10, thread the needle each side",ex:["Lat Pulldown (wide grip) — 4×12 · add load from Phase 1",
+  "Seated Cable Row — 4×12 · elbows back, chest proud",
+  "Cable Face Pull — 3×15 · external rotation · shoulder health",
+  "EZ Bar Curl — 3×15 · controlled · full range",
+  "Hammer Curl — 3×12 · neutral grip targets brachialis",
+  "Dead Bug — 4×10 · exhale ALL air before each rep",
+  "Ab Wheel Rollout (from knees) — 3×8 · slow and deliberate",
+  "Cable Crunch — 3×15 · round through the spine",
+  "Plank — 3×75s"],
+  cardio:"10 min incline walk pre-workout + 10 min elliptical cool-down",
+  tip:"Back and biceps are getting heavier. The ab wheel starts here — it's the most honest core exercise you'll ever do. Thursday is full body. Rest your pulling muscles tonight."},
+ home:{yoga:"Flow: downward dog → upward dog × 8, cat-cow × 10",ex:["Band Pull-Apart — 4×20",
+  "Resistance Band Row (both arms) — 4×15",
+  "Band Face Pull — 3×15",
+  "Resistance Band Curl — 3×15",
+  "Dead Bug — 4×10",
+  "Hollow Body Hold — 3×25s · press lower back to floor",
+  "Mountain Climbers — 3×20 each · controlled speed",
+  "Plank with Shoulder Tap — 3×12 each side",
+  "Side Plank — 3×45s each"],
+  cardio:"Brisk walk 20 min OR dance cardio",
+  tip:"Bands are doing serious work this phase. Thursday is full body — rest your pulling muscles tonight."},
+ flare:["🧘🏾 Upper body yin — thread the needle, puppy pose, chest opener","🌸 Gentle shoulder rolls and neck release 10 min","💛 Seated band pull-aparts 2×20 if energy allows","• Rest and hydrate"],
+ flareTip:"Upper body flare protocol. Joint mobility without loading. Your nervous system recovers — that counts.",
+ note:"Day 35 · Phase 2 Session 2. Back, biceps, and core — heavier and harder than Phase 1."},
+
+{date:"Jul 29",wd:"Wed",week:5,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — upper body recovery, lats and biceps","PT session — back muscles worked hard Tuesday. Let them know.","Focus: thoracic mobility, lat stretch, bicep tendon care"],cardio:"Easy walk",tip:"Thursday is Full Body Burn — your first circuit of Phase 2. PT today sets you up. Come tomorrow ready to push all 4 rounds."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — lat and bicep recovery","PT session — mention Tuesday's pulling work","Focus: thoracic mobility, lat stretch"],cardio:"Easy walk",tip:"Thursday is Full Body Burn. PT today sets you up for it."}},
+
+{date:"Jul 30",wd:"Thu",week:5,type:"Full Body Burn",workout:true,
+ gym:{yoga:"Sun salutation × 6 + hip openers — everything needs to be warm",ex:["4 Rounds — 45s work / 15s rest / no break between exercises in a round:",
+  "• Leg Press",
+  "• Lat Pulldown",
+  "• Barbell Hip Thrust",
+  "• Seated Cable Row",
+  "• Bicycle Crunch × 30",
+  "• Stairmaster 3 min moderate",
+  "| 2 min rest between rounds"],
+  cardio:"Built into circuit",
+  tip:"Full Body Burn. Every major muscle group in one session. 4 rounds means 24 minutes of near-continuous work. This is what Phase 2 feels like. Week 5 done — rest Sunday, come back Monday."},
+ home:{yoga:"Sun salutation × 6 + hip openers",ex:["4 Rounds — 45s work / 15s rest:",
+  "• Sumo Squat (kettlebell)",
+  "• Band Pull-Apart",
+  "• Couch Hip Thrust",
+  "• Band Row (alternating)",
+  "• Bicycle Crunch × 30",
+  "• High Knees 3 min",
+  "| 2 min rest between rounds"],
+  cardio:"Built into circuit",
+  tip:"Full Body Burn. 4 rounds, everything. This is the feel of Phase 2. Week 5 complete."},
+ flare:["🧘🏾 Restorative yoga — full body · child's pose, legs up wall, supine spinal twist","🌸 Gentle full-body stretch 20 min","💛 Breathing exercises: 4-7-8 breath for nervous system reset","• No strength work today"],
+ flareTip:"Full body flare protocol. Today the nervous system needs restoration, not stimulus.",
+ note:"Day 37 · Phase 2 Session 3. Week 5 complete. Full body circuit introduces Phase 2 intensity."},
+
+/* ── WEEK 6: BUILDING ── */
+{date:"Jul 31",wd:"Fri",week:6,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — Week 5 recovery flow","PT session — share how the superset sessions felt","Focus: hip flexor release · glute activation work · shoulder mobility","Note: Saturday is Glute + Hamstring focus — tell your PT"],cardio:"Easy walk",tip:"Week 6 starts Saturday with a glute-specific session. PT today builds your capacity for it. Come Saturday ready to go heavier on hip thrusts than ever before."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — full body recovery","PT session — update on Week 5 response","Focus: hip mobility, glute activation"],cardio:"Easy walk",tip:"Saturday is Glute + Hamstring focus — heavier than Week 5. PT today prepares you."}},
+
+{date:"Aug 1",wd:"Sat",week:6,type:"Glute + Hamstring",workout:true,
+ gym:{yoga:"Deep pigeon pose 3 min each side + hip flexor lunge stretch",ex:["Hip Thrust — 5×12 · heaviest load yet · 2s pause at top · SQUEEZE",
+  "Romanian Deadlift — 4×10 · 3-count eccentric · feel every millimeter",
+  "Leg Press (feet high on plate) — 4×15 · high placement = more glute",
+  "Lying Leg Curl — 3×12 · control the negative",
+  "Cable Glute Kickback — 3×15 each · full hip extension",
+  "Hip Abduction Machine — 3×20 · medial glute and outer hip"],
+  cardio:"Stairmaster 25 min — every step is glute and cardio simultaneously",
+  tip:"5 sets of hip thrusts at the heaviest weight you've ever moved. This is the exercise that builds the body in those reference photos. Teyana Taylor and Kehlani didn't build their glutes doing 3 light sets. Tuesday we go after arms."},
+ home:{yoga:"Deep pigeon pose 3 min each side + hip flexor lunge",ex:["Couch Hip Thrust — 5×12 · max resistance · 2s pause",
+  "Single-Leg RDL — 4×10 each · slow descent",
+  "Sumo Squat — 4×15 · widest stance · feel inner thighs and glutes",
+  "Glute Bridge Hold (band) — 3×45s · band above knees",
+  "Donkey Kickback (band) — 3×15 each · full extension",
+  "Side-Lying Clamshell (band) — 3×20 each · outer hip burn"],
+  cardio:"Jump rope intervals 20 min OR brisk uphill walk if available",
+  tip:"5 sets at maximum home resistance. This is the glute-building session of the plan. Come Tuesday ready for arms."},
+ flare:["🧘🏾 Gentle lower body yin — pigeon, butterfly, supine figure-4","🌸 Legs up the wall 15 min — recovery and circulation","💛 Gentle glute squeeze lying down — 3×20 · no load · just activation","• Walk flat 10 min"],
+ flareTip:"Lower body flare protocol. Your body is protecting itself — honor that. Gentle work today means you're ready sooner.",
+ note:"Day 39 · Phase 2 Session 4. 5 sets of hip thrusts. This is where the Goddess Body is built."},
+
+{date:"Aug 2",wd:"Sun",week:6,type:"REST",workout:false,
+ gym:{ex:["Full rest","Glutes worked harder than ever Saturday — let them rebuild","High protein today · anti-inflammatory foods","Optional: 20 min easy walk"],cardio:"None",tip:"Your body is building something. Rest today means more tomorrow. Tuesday is arms and core."},
+ home:{ex:["Full rest","Anti-inflammatory reset — turmeric, tart cherry juice, water","High protein · good carbs · sleep long"],cardio:"None",tip:"Rest and rebuild. Tuesday is arms and core — come back charged."},
+ note:"Rest Day. Week 6. Saturday was big — today the growth happens."},
+
+{date:"Aug 3",wd:"Mon",week:6,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — glute and hamstring recovery","PT session — Saturday's session was intense. Share the details.","Focus: piriformis release, IT band work, hamstring lengthening"],cardio:"Easy walk",tip:"Tuesday is Arms + Core Advanced — the most upper body volume you've done in this plan. PT today gives your lower body the release it needs before another push day."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — lower body recovery","PT session — share Saturday's hip thrust session","Focus: glute release, piriformis, hamstring"],cardio:"Easy walk",tip:"Tuesday is arms and core. PT today gives your lower body a break before Thursday's full body session."}},
+
+{date:"Aug 4",wd:"Tue",week:6,type:"Arms + Core Advanced",workout:true,
+ gym:{yoga:"Cat-cow × 12, downward dog flow, thread the needle each side",ex:["Lat Pulldown (close grip) — 4×12 · variation from Week 5",
+  "One-Arm Dumbbell Row — 4×12 each · full range · elbow drives back",
+  "EZ Bar Curl — 4×12 · slightly heavier than Week 5",
+  "Incline Dumbbell Curl — 3×10 · long head bicep stretch at bottom",
+  "Dead Bug — 4×10 · slow · intentional",
+  "Hanging Knee Raise — 3×12 · or captain's chair",
+  "Cable Crunch — 4×15 · round fully at bottom",
+  "Plank — 2×90s"],
+  cardio:"15 min incline treadmill walk (active recovery between sets is fine)",
+  tip:"Arms are getting heavier and the core work is getting harder. You're building the defined arms in those reference photos with every row and every curl. Thursday is full body."},
+ home:{yoga:"Cat-cow × 12, downward dog flow, thread the needle",ex:["Band Pull-Apart — 4×20",
+  "Single-Arm Band Row — 4×12 each side · anchor at waist height",
+  "Resistance Band Curl — 4×12",
+  "Concentration Curl (weight) — 3×12 each · slow",
+  "Dead Bug — 4×10",
+  "Leg Raise (lying) — 3×15 · keep lower back pressed to floor",
+  "Bicycle Crunch — 3×25 · controlled rotation",
+  "Plank — 2×90s"],
+  cardio:"Brisk walk 20 min",
+  tip:"Core and arms building. Thursday is full body tabata — something completely new."},
+ flare:["🧘🏾 Upper body yin — puppy pose, chest opener, shoulder stretch","🌸 Seated band pull-aparts 2×15 · very light","💛 Gentle neck and shoulder release 10 min","• Rest otherwise"],
+ flareTip:"Upper body flare day — gentle shoulder mobility only. Your arms will be ready when your body is.",
+ note:"Day 42 · Phase 2 Session 5. Arms + core at a new level."},
+
+{date:"Aug 5",wd:"Wed",week:6,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — bicep and lat recovery","PT session — mention the arm volume from Tuesday","Focus: bicep tendon stretch, lat release, thoracic rotation"],cardio:"Easy walk",tip:"Thursday is Full Body Tabata — 20 seconds of work, 10 seconds of rest, repeated 8 times per station. PT today gets your body ready for this intensity spike."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — upper body recovery","PT session — arm recovery focus","Focus: lat stretch, bicep tendon stretch"],cardio:"Easy walk",tip:"Thursday is Tabata — a completely new training style. PT today prepares you."}},
+
+{date:"Aug 6",wd:"Thu",week:6,type:"Full Body Tabata",workout:true,
+ gym:{yoga:"Full body activation — 5 sun salutations + hip openers + arm circles",ex:["TABATA FORMAT — 20s max effort / 10s rest × 8 rounds per station / 1 min rest between stations:",
+  "Station 1 — Leg Press (or goblet squat)",
+  "Station 2 — Barbell Hip Thrust",
+  "Station 3 — Lat Pulldown",
+  "Station 4 — Bicycle Crunch",
+  "Station 5 — Stairmaster sprint intervals",
+  "| Total: ~28 min of work",
+  "Note: 20 seconds full effort — you should be working hard"],
+  cardio:"Built into tabata (Station 5)",
+  tip:"Tabata is the most efficient training style you'll do. 20 seconds of real effort burns more than 45 minutes of casual cardio. Week 6 done. Saturday brings the heaviest lower body session yet."},
+ home:{yoga:"5 sun salutations + hip openers",ex:["TABATA FORMAT — 20s / 10s × 8 rounds per station / 1 min rest:",
+  "Station 1 — Sumo Squat (with kettlebell)",
+  "Station 2 — Couch Hip Thrust",
+  "Station 3 — Band Row",
+  "Station 4 — Bicycle Crunch",
+  "Station 5 — High Knees OR Jump Rope",
+  "| Total: ~28 min",
+  "Note: 20 seconds FULL effort — no pacing"],
+  cardio:"Built into tabata (Station 5)",
+  tip:"Tabata introduced. 20 seconds of everything you have. Week 6 is done — Saturday is the heaviest lower body of the plan so far."},
+ flare:["🧘🏾 Restorative yoga — long holds, legs up the wall, supported bridge","🌸 Full body progressive muscle relaxation 20 min","💛 Tart cherry juice + anti-inflammatory foods all day","• Rest completely from training"],
+ flareTip:"Tabata can wait — your body is doing important work managing inflammation. Rest IS the workout today.",
+ note:"Day 44 · Phase 2 Session 6. Tabata protocol introduced. Highest intensity format of Phase 2."},
+
+/* ── WEEK 7: SURGE ── */
+{date:"Aug 7",wd:"Fri",week:7,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — full body recovery from Tabata","PT session — share how Week 6 felt overall","Focus: full body recovery · particular attention to hip flexors and lats"],cardio:"Easy walk",tip:"Week 7 is Surge week. Saturday brings the heaviest lower body of Phase 2. PT today is your preparation. Let the therapist work on your glutes and hamstrings — they'll need it."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — full body recovery","PT session — Week 6 debrief","Focus: hip flexors, lats, lower back"],cardio:"Easy walk",tip:"Surge Week starts Saturday. PT today prepares you for the heaviest lower body session."}},
+
+{date:"Aug 8",wd:"Sat",week:7,type:"Heavy Lower Body",workout:true,
+ gym:{yoga:"Extended pigeon pose (3 min each side) + hip flexor lunge + dynamic leg swings",ex:["Leg Press — 5×10 · heaviest load of Phase 2 · full range of motion",
+  "Barbell Hip Thrust — 5×10 · focused loading · pause at top",
+  "Romanian Deadlift — 4×8 · slow 3-count eccentric · feel every fiber",
+  "Walking Dumbbell Lunge — 3×12 each · dumbbells add upper body demand",
+  "Glute Kickback Machine — 3×15 each",
+  "Hip Abduction Machine — 3×20 · outer glute"],
+  cardio:"Stairmaster 25 min — surge pace: 3 min hard, 2 min moderate",
+  tip:"Heaviest lower body of Phase 2. The leg press and hip thrusts should feel different today — heavier, harder, and exactly where the body change happens. Tuesday we hit back hard."},
+ home:{yoga:"Extended pigeon (3 min each side) + hip flexor lunge",ex:["Sumo Squat — 5×10 · heaviest kettlebell · pause at bottom",
+  "Couch Hip Thrust — 5×10 · maximum weight on hips",
+  "Single-Leg RDL — 4×8 each · slow and controlled",
+  "Reverse Lunge — 3×12 each · add weight if available",
+  "Fire Hydrant (band) — 3×20 each · squeeze outer glute",
+  "Calf Raise — 3×25 · slow eccentric"],
+  cardio:"Jump rope 20 min: 1 min fast, 1 min slow intervals",
+  tip:"Heaviest home lower body of Phase 2. Everything is heavier than Phase 1. Tuesday is back and core — rest your legs tonight."},
+ flare:["🧘🏾 Gentle lower body yoga — supine figure-4, legs up wall, butterfly","🌸 Ice pack or heating pad on glutes if needed","💛 Tart cherry juice × 2 today — proven for fibromyalgia muscle recovery","• Flat 15 min walk — no hills"],
+ flareTip:"Your lower body needs a gentle day. Flare protocol activates the muscles without stressing the joints.",
+ note:"Day 46 · Phase 2 Session 7. Heaviest lower body of Phase 2 so far."},
+
+{date:"Aug 9",wd:"Sun",week:7,type:"REST",workout:false,
+ gym:{ex:["Complete rest","After the heaviest lower body session yet, rest is non-negotiable","Anti-inflammatory protocol: turmeric, omega-3, tart cherry, water","Foam roll gently if accessible — 5 min glutes and hamstrings"],cardio:"None",tip:"The work is done. Now let your body build from it. Tuesday is back and core — come back fresh."},
+ home:{ex:["Complete rest","Anti-inflammatory foods and hydration priority","Gentle foam rolling if available","Sleep 8+ hours tonight"],cardio:"None",tip:"Rest today. Tuesday is back and core — your upper body gets the attention."},
+ note:"Rest Day. Week 7. Surge Week continues to build."},
+
+{date:"Aug 10",wd:"Mon",week:7,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — lower body recovery emphasis","PT session — Saturday was heavy. Tell your therapist exactly which muscles worked.","Focus: glute release, piriformis, IT band, hamstring lengthening","Ask about recovery strategies between heavy superset sessions"],cardio:"Easy walk",tip:"Tuesday is Back + Core Circuit — new format, new movements. PT today recovers your lower body so your upper body can carry Thursday's full body session."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — lower body recovery","PT session — Saturday debrief","Focus: glute release, hamstring stretch"],cardio:"Easy walk",tip:"Tuesday is Back + Core Circuit. PT today sets up the rest of Surge Week."}},
+
+{date:"Aug 11",wd:"Tue",week:7,type:"Back + Core Circuit",workout:true,
+ gym:{yoga:"Downward dog flow × 8, cat-cow × 12, thread the needle",ex:["Lat Pulldown (neutral grip) — 4×10 · heavy · variety from previous weeks",
+  "Cable Row (high pulley to face) — 4×12 · targets upper back and rear delts",
+  "Straight Arm Pulldown — 3×15 · lat isolation · keep arms straight",
+  "Dumbbell Pullover — 3×12 · stretch the lats at the bottom",
+  "EZ Bar Curl — 3×12",
+  "Dead Bug — 3×12 · slow · deliberate",
+  "Plank to Downdog — 3×10 · flow between positions",
+  "Bicycle Crunch — 3×30 · controlled rotation",
+  "Side Plank — 3×60s each"],
+  cardio:"10 min elliptical between strength blocks",
+  tip:"Upper back and core today. The pullover is new — it stretches your lats in a way pulldowns can't. Thursday is Full Body AMRAP — a completely different challenge. Rest your back tonight."},
+ home:{yoga:"Downward dog flow × 8, cat-cow × 12",ex:["Band Pull-Apart — 4×25",
+  "Band Row (wide grip) — 4×15",
+  "Straight Arm Band Pulldown — 3×15",
+  "Band Bicep Curl — 3×15",
+  "Dead Bug — 3×12",
+  "Bird Dog — 3×10 each · extend opposite arm and leg",
+  "Bicycle Crunch — 3×30",
+  "Side Plank — 3×60s each"],
+  cardio:"Walk 20 min with purpose",
+  tip:"Back and core. Thursday is AMRAP — you'll find out how much endurance you've built."},
+ flare:["🧘🏾 Upper body yin — thread the needle, puppy pose, supported fish","🌸 Gentle lat stretch: hang from doorframe or reach overhead","💛 Upper body self-massage with tennis ball on rhomboids","• Light activity only"],
+ flareTip:"Upper body flare day — mobility and gentle stretching only. Your back will be stronger when you return.",
+ note:"Day 49 · Phase 2 Session 8. Back + Core Circuit — new movements, same commitment."},
+
+{date:"Aug 12",wd:"Wed",week:7,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — upper back and lat recovery","PT session — back and core session Tuesday · share the movements","Focus: thoracic spine mobility · lat stretching · core stability work","Ask PT about improving posture under lat pulldown load"],cardio:"Easy walk",tip:"Thursday is Full Body AMRAP — as many rounds as possible in 30 minutes. It's the biggest endurance test of Phase 2. PT today sharpens the body for it."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — upper back recovery","PT session — share Tuesday's work","Focus: thoracic mobility, lat stretch"],cardio:"Easy walk",tip:"Thursday is AMRAP — your endurance test for Phase 2. PT today prepares you."}},
+
+{date:"Aug 13",wd:"Thu",week:7,type:"Full Body AMRAP",workout:true,
+ gym:{yoga:"Full body warmup — 6 sun salutations + full joint mobility sequence",ex:["AMRAP — As Many Rounds As Possible in 30 minutes:",
+  "• 10 Leg Press reps",
+  "• 10 Lat Pulldown reps",
+  "• 10 Hip Thrust reps",
+  "• 10 Cable Row reps",
+  "• 15 Bicycle Crunches",
+  "• 2 min Stairmaster (moderate)",
+  "| No rest except what you need. Count your rounds.",
+  "Target: 4+ rounds. Elite: 5+ rounds"],
+  cardio:"Built into AMRAP (Stairmaster interval each round)",
+  tip:"How many rounds did you get? Write it down. This number will go up in Phase 3. AMRAP tests your true fitness level — strength, cardio, and mental toughness in one format. Week 7 done."},
+ home:{yoga:"6 sun salutations + full joint mobility",ex:["AMRAP — 30 minutes:",
+  "• 10 Sumo Squats (kettlebell)",
+  "• 10 Band Rows each side",
+  "• 10 Couch Hip Thrusts",
+  "• 10 Band Pull-Aparts",
+  "• 15 Bicycle Crunches",
+  "• 2 min High Knees or Jump Rope",
+  "| Target: 4+ rounds. Elite: 5+",
+  "| Note your rounds — this number matters in Phase 3"],
+  cardio:"Built into AMRAP",
+  tip:"Write down your round count. Phase 3 will test this number again. Week 7 complete."},
+ flare:["🧘🏾 Full body restorative yoga — child's pose, supported bridge, savasana","🌸 Guided relaxation or body scan 20 min","💛 Anti-inflammatory dinner · omega-3 priority","• Rest — AMRAP can wait for a better day"],
+ flareTip:"AMRAP is maximum output — that's not where a flare day goes. Rest and reset. Your body is still building even on rest days.",
+ note:"Day 51 · Phase 2 Session 9. AMRAP benchmark set. Log your rounds — Phase 3 will beat them."},
+
+/* ── WEEK 8: BREAKTHROUGH ── */
+{date:"Aug 14",wd:"Fri",week:8,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — full body recovery post-AMRAP","PT session — Week 7 debrief · how is the body responding?","Focus: full recovery · hip flexors, lats, glutes, core"],cardio:"Easy walk",tip:"Breakthrough Week. 4 workout days this week instead of 3. PT today is your cornerstone for getting through them all. Tell your therapist what you need."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — full body recovery","PT session — Week 7 debrief","Focus: full recovery priority"],cardio:"Easy walk",tip:"Breakthrough Week has 4 workout days. PT today sets the foundation."}},
+
+{date:"Aug 15",wd:"Sat",week:8,type:"Lower Body Supersets",workout:true,
+ gym:{yoga:"Extended hip flexor and pigeon sequence — 3 min each side",ex:["SUPERSET A — 5 rounds (heaviest of Phase 2) · 90s rest:",
+  "• Leg Press 5×12 — maximum loaded",
+  "• Barbell Hip Thrust 5×12 — 2s pause · squeeze + hold",
+  "SUPERSET B — 4 rounds · 60s rest:",
+  "• Romanian Deadlift 4×10 · 3-count eccentric",
+  "• Bulgarian Split Squat 4×10 each · add dumbbells",
+  "Cable Pull-Through 3×15",
+  "Leg Curl 3×12 · slow negative"],
+  cardio:"Stairmaster 25 min — peak pace: 3 min hard / 1 min easy",
+  tip:"5 rounds of supersets. Breakthrough Week means you break through what you thought was your limit. Monday is PT, Tuesday is core and arms, Thursday is full body, Saturday is Phase 2 finale."},
+ home:{yoga:"Extended hip flexor and pigeon — 3 min each side",ex:["SUPERSET A — 5 rounds · 90s rest:",
+  "• Sumo Squat 5×12 · heaviest bell",
+  "• Couch Hip Thrust 5×12 · 2s pause",
+  "SUPERSET B — 4 rounds · 60s rest:",
+  "• Single-Leg RDL 4×10 each",
+  "• Reverse Lunge 4×10 each · add weight if possible",
+  "Glute Bridge Hold 3×45s · band above knees",
+  "Donkey Kickback (band) 3×15 each"],
+  cardio:"Jump rope 22 min — intervals",
+  tip:"5 rounds. Breakthrough Week. 4 workout sessions this week — Saturday's Phase 2 finale is 3 days away."},
+ flare:["🧘🏾 Yin lower body — pigeon, butterfly, supine twist","🌸 Legs up the wall 15 min","💛 Tart cherry × 2 servings today","• Flat gentle walk 15 min"],
+ flareTip:"Breakthrough Week started — your body needs a protected day. Gentle movement keeps you in the game.",
+ note:"Day 53 · Phase 2 Session 10. Breakthrough Week. 5 rounds of supersets — biggest lower body volume of Phase 2."},
+
+{date:"Aug 16",wd:"Sun",week:8,type:"REST",workout:false,
+ gym:{ex:["Full rest — 5-round superset session needs a full recovery day","Anti-inflammatory meal priority today","Protein intake must stay high — your muscles are rebuilding","Foam roll gently if accessible"],cardio:"None",tip:"5-round supersets are done. Your body is building. Rest is the final rep. Tuesday is core and arms."},
+ home:{ex:["Full rest","High protein + anti-inflammatory foods","Gentle foam roll if accessible","Sleep well tonight — growth hormone does its best work in deep sleep"],cardio:"None",tip:"Rest. Tuesday is core and arms — come back ready."},
+ note:"Rest Day. Week 8. Breakthrough Week's biggest session is behind you."},
+
+{date:"Aug 17",wd:"Mon",week:8,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — glute and hamstring focus","PT session — Saturday was the heaviest superset session of Phase 2. Mention it.","Focus: active recovery · glute release · piriformis · IT band"],cardio:"Easy walk",tip:"Tuesday is Core + Arms Peak II — the strongest upper body session of Phase 2. PT today helps your lower body recover so your upper body can carry the load."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — recovery focus","PT session — Saturday debrief","Focus: glute release, piriformis"],cardio:"Easy walk",tip:"Tuesday is Core + Arms Peak II. PT today sets you up."}},
+
+{date:"Aug 18",wd:"Tue",week:8,type:"Core + Arms Peak II",workout:true,
+ gym:{yoga:"Downward dog flow × 10, cat-cow × 12, thread the needle",ex:["Lat Pulldown (close grip) — 5×10 · heaviest of Phase 2",
+  "Cable Row — 5×10 · heaviest of Phase 2",
+  "Straight Arm Pulldown — 3×15",
+  "EZ Bar Curl — 4×10 · heavy",
+  "Incline Dumbbell Curl — 3×10",
+  "Dead Bug — 4×12 · slow",
+  "Ab Wheel Rollout — 4×8 · controlled",
+  "Cable Crunch — 4×15",
+  "Plank — 3×90s"],
+  cardio:"15 min incline walk",
+  tip:"Peak II means this is the strongest your back and arms have been in Phase 2. Thursday is Full Body Breakthrough — one last huge session before Saturday's Phase 2 finale."},
+ home:{yoga:"Downward dog flow × 10, cat-cow × 12",ex:["Band Pull-Apart — 5×20",
+  "Band Row — 5×15 each",
+  "Band Bicep Curl — 4×15",
+  "Concentration Curl — 4×12 each",
+  "Dead Bug — 4×12",
+  "Ab Wheel or Sliding Plank — 4×8",
+  "Bicycle Crunch — 4×30",
+  "Plank — 3×90s"],
+  cardio:"Walk 25 min fast pace",
+  tip:"Peak arms and core at home. Thursday is breakthrough — then Saturday closes Phase 2."},
+ flare:["🧘🏾 Upper body yin — thread the needle, puppy pose, supported fish","🌸 Gentle shoulder mobility: arm circles, pendulum swings","💛 Rest upper body completely if load feels wrong","• Light walk is enough today"],
+ flareTip:"Flare during peak week. Rest fully — peak numbers wait. Phase 3 will be there.",
+ note:"Day 56 · Phase 2 Session 11. Core + Arms Peak II. Strongest upper body session of Phase 2."},
+
+{date:"Aug 19",wd:"Wed",week:8,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — lat, bicep, and core recovery","PT session — share Tuesday's peak session","Focus: thoracic mobility · lat stretch · core release","Two more sessions left in Phase 2"],cardio:"Easy walk",tip:"Thursday is Full Body Breakthrough. Saturday is Phase 2 finale. PT today puts the final edge on your body before these two closing sessions. Come Thursday ready."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — upper body recovery","PT session — Tuesday debrief","Focus: lat and bicep stretch"],cardio:"Easy walk",tip:"Two sessions left in Phase 2. PT today prepares you for both."}},
+
+{date:"Aug 20",wd:"Thu",week:8,type:"Full Body Breakthrough",workout:true,
+ gym:{yoga:"Full body warmup — 7 sun salutations + hip flexor and shoulder opener",ex:["5 Rounds — structured circuit:",
+  "Round A: Leg Press 10 reps + Lat Pulldown 10 reps + Hip Thrust 10 reps (no rest within round)",
+  "| 90s rest",
+  "Round B: Cable Row 10 reps + Dead Bug 10 reps + Bicycle Crunch 20 reps (no rest within round)",
+  "| 90s rest",
+  "Stairmaster 5 min between each full circuit pass",
+  "| Complete 3 circuit passes total",
+  "Note: This session is 45-50 min total — your longest of Phase 2"],
+  cardio:"Stairmaster integrated (5 min × 3 = 15 min total)",
+  tip:"Full Body Breakthrough — the biggest Phase 2 session. You've trained 11 sessions across 4 weeks. One more after this: Saturday's Phase 2 finale. Finish strong."},
+ home:{yoga:"7 sun salutations + hip and shoulder openers",ex:["5 Rounds — structured circuit:",
+  "Round A: Sumo Squat 10 + Band Row 10 + Hip Thrust 10 (no rest within round)",
+  "| 90s rest",
+  "Round B: Band Pull-Apart 15 + Dead Bug 10 + Bicycle Crunch 20 (no rest within round)",
+  "| 90s rest",
+  "High Knees or Jump Rope 5 min between passes",
+  "| 3 complete circuit passes"],
+  cardio:"Integrated (5 min × 3)",
+  tip:"Biggest home session of Phase 2. One more after this — Saturday's Phase 2 finale."},
+ flare:["🧘🏾 Full body restorative yoga — supported poses · long holds","🌸 Legs up the wall 15 min + ice on any inflamed joints","💛 Complete nervous system reset today — breathing, meditation, rest","• No training load at all"],
+ flareTip:"Full Body Breakthrough can wait. Your nervous system is the priority right now. Phase 3 will still be there.",
+ note:"Day 58 · Phase 2 Session 12. Full Body Breakthrough — longest session of Phase 2."},
+
+{date:"Aug 21",wd:"Fri",week:8,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — full recovery from Thursday's breakthrough","PT session — tell your therapist tomorrow is Phase 2's final workout","Focus: hip flexors, lats, glutes, core — everything worked Thursday","Ask your PT: how has your body changed since June 24?"],cardio:"Easy walk",tip:"One session left in Phase 2. PT today sets up the finale. Come tomorrow with everything — Saturday closes out 60 days of transformation."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — full body recovery","PT session — Phase 2 finale is tomorrow","Focus: full body recovery · debrief with your therapist"],cardio:"Easy walk",tip:"Tomorrow is Phase 2 finale. PT today is the final preparation. Come Saturday with everything you have."}},
+
+{date:"Aug 22",wd:"Sat",week:8,type:"Lower Body P2 Finale",workout:true,
+ gym:{yoga:"Extended pigeon 3 min each side + standing hip circles + leg swings — everything open",ex:["Hip Thrust — 5×12 · heaviest load you've done in 60 days · 2s pause each rep",
+  "Leg Press — 5×12 · maximum Phase 2 load",
+  "Romanian Deadlift — 4×10 · 3-count eccentric",
+  "Bulgarian Split Squat — 4×10 each · controlled",
+  "Cable Glute Kickback — 3×15 each",
+  "Hip Abduction — 3×20",
+  "Seated Leg Curl — 3×12"],
+  cardio:"Stairmaster 28 min — Phase 2 farewell. Intervals: 3 min hard / 2 min moderate",
+  tip:"🏆 Phase 2 complete. 13 sessions over 30 days. You came in with a foundation — you're leaving with the structure. Progress photos today. Compare June 24, July 23, and now. Phase 3 begins Sunday: Mastery, Legacy, Transformation, Ascension. You earned it."},
+ home:{yoga:"Extended pigeon 3 min each side + hip circles",ex:["Couch Hip Thrust — 5×12 · maximum resistance · 2s pause",
+  "Sumo Squat — 5×12 · heaviest load",
+  "Single-Leg RDL — 4×10 each · tempo",
+  "Reverse Lunge — 4×10 each · with weight",
+  "Donkey Kickback (band) — 3×15 each",
+  "Clamshell (band) — 3×20 each",
+  "Glute Bridge Hold — 3×45s"],
+  cardio:"Jump rope 25 min — intervals",
+  tip:"🏆 Phase 2 complete. Take progress photos today. Compare across all 3 checkpoints. Phase 3 opens Sunday — Mastery week. You've earned every bit of what comes next."},
+ flare:["🧘🏾 Celebration yoga — gentle flow honoring what your body did this phase","🌸 Legs up the wall 15 min + cold compress if needed","💛 Full rest from strength work · anti-inflammatory celebration meal","• Easy walk to honor the journey"],
+ flareTip:"Phase 2 finale on a flare day. Your body worked 29 of 30 days this phase regardless. Rest is honoring the work. Phase 3 awaits.",
+ note:"Day 60 · Phase 2 FINALE. 60 days complete. Phase 3: Mastery begins Sunday."},
+
+/* ─────────────────────────────────────────────────────────
+   PHASE 3 — GODDESS PEAK  (Days 61–90 · Aug 23 – Sep 21)
+   Mastery · Legacy · Transformation · Ascension
+   Paused Reps · Tempo Training · Peak Volume · Final 30
+──────────────────────────────────────────────────────────── */
+
+/* ── WEEK 9: MASTERY ── */
+{date:"Aug 23",wd:"Sun",week:9,type:"REST",workout:false,
+ gym:{ex:["Phase 2 is complete. Today you rest before Phase 3 begins.","This rest day is strategic — Phase 3 starts Monday with PT, then Tuesday with the heaviest lower body session of the entire 90 days","Anti-inflammatory foods: omega-3, turmeric, tart cherry, leafy greens","Take progress photos if you haven't · compare June 24, July 23, August 22"],cardio:"None",tip:"60 days complete. Take your photos. Rest today. Phase 3 begins tomorrow — Mastery, Legacy, Transformation, Ascension. You are building something that lasts."},
+ home:{ex:["Phase 2 complete · rest before Phase 3","Progress photos — compare all 3 checkpoints","Anti-inflammatory foods and hydration","Rest fully today"],cardio:"None",tip:"60 days done. Rest today. Phase 3 opens tomorrow."},
+ note:"Rest Day · Phase 3 begins. 60 days complete. 30 remain."},
+
+{date:"Aug 24",wd:"Mon",week:9,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — full body prep for Phase 3","PT session — share your Phase 2 progress. Let them see the change.","Focus: deep hip mobility · shoulder range of motion · core stability","Tell your PT: Phase 3 introduces paused reps and tempo training"],cardio:"Easy walk",tip:"Phase 3 opens with Mastery. Tuesday is Lower Body Mastery — paused hip thrusts and tempo squats. PT today sets the body for the most demanding lower body session you've done."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — Phase 3 preparation","PT session — Phase 2 debrief and Phase 3 introduction","Focus: hip mobility, thoracic extension, core activation"],cardio:"Easy walk",tip:"Phase 3 starts Tuesday. PT today sets you up for Lower Body Mastery."}},
+
+{date:"Aug 25",wd:"Tue",week:9,type:"Lower Body Mastery",workout:true,
+ gym:{yoga:"Extended pigeon 3 min each side + dynamic leg swings + hip circles",ex:["Hip Thrust — 5×10 · PAUSED · 3s hold at top each rep · maximum load",
+  "Leg Press — 5×10 · 2-count eccentric · full control",
+  "Romanian Deadlift — 4×8 · tempo: 4-count down, 1-count up",
+  "Bulgarian Split Squat — 4×10 each · pause 1s at bottom",
+  "Cable Pull-Through — 3×15 · feel the glute stretch at the hinge",
+  "Lying Leg Curl — 3×12 · 3-count eccentric",
+  "Hip Abduction — 3×25 · slow and controlled"],
+  cardio:"Stairmaster 28 min — Phase 3 pace: 4 min hard / 1 min easy",
+  tip:"Paused reps are the difference between going through the motion and owning the motion. 3 seconds at the top of every hip thrust. You will feel this tomorrow. Thursday is Core Mastery."},
+ home:{yoga:"Extended pigeon + dynamic leg swings + hip circles",ex:["Couch Hip Thrust — 5×10 · PAUSED · 3s hold each rep · max weight",
+  "Sumo Squat — 5×10 · 2-count eccentric",
+  "Single-Leg RDL — 4×8 each · tempo: 4-count down",
+  "Reverse Lunge — 4×10 each · pause 1s at bottom",
+  "Glute Bridge (band) — 3×20 · pause 2s at top",
+  "Fire Hydrant — 3×20 each · slow",
+  "Calf Raise — 3×25 · eccentric focus"],
+  cardio:"Jump rope 25 min — Phase 3 intervals",
+  tip:"3-second paused hip thrusts. This is what Mastery Week means. Thursday is Core Mastery."},
+ flare:["🧘🏾 Lower body yin — pigeon, butterfly, supine twist, legs up wall","🌸 Gentle hip circles and ankle rotations lying down","💛 Anti-inflammatory priority — turmeric ginger tea + tart cherry","• Flat 15 min walk"],
+ flareTip:"Lower Body Mastery on a flare day — the mastery is knowing when to rest. Your body is smarter than any workout plan.",
+ note:"Day 63 · Phase 3 Session 1. Lower Body Mastery. Paused reps introduced. The standard rises."},
+
+{date:"Aug 26",wd:"Wed",week:9,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — glute and hamstring recovery","PT session — Tuesday's paused hip thrusts created deep glute work. Share it.","Focus: piriformis release · IT band · hamstring lengthening","Ask your PT about hip thrust depth — they can help with form cues"],cardio:"Easy walk",tip:"Thursday is Core Mastery — the deepest core work of the plan. PT today recovers your lower body so your core and upper body carry Thursday."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — lower body recovery","PT session — Tuesday debrief","Focus: glute and hamstring release"],cardio:"Easy walk",tip:"Thursday is Core Mastery. PT today recovers your lower body."}},
+
+{date:"Aug 27",wd:"Thu",week:9,type:"Core Mastery",workout:true,
+ gym:{yoga:"Full core activation flow: cat-cow, bird dog, dead bug × 5 each",ex:["Dead Bug — 5×12 · 3-count extension on each rep",
+  "Ab Wheel Rollout — 4×10 · this is the Mastery version · full rollout",
+  "Cable Crunch — 4×20 · controlled · round the spine fully",
+  "Leg Raise (hanging or captain's chair) — 4×12 · no swing",
+  "Plank — 4×90s · RKC plank: squeeze glutes + fists",
+  "Bicycle Crunch — 4×30 · 2-count rotation each side",
+  "Russian Twist (bodyweight) — 3×20 each"],
+  cardio:"15 min incline treadmill walk between sets",
+  tip:"Core Mastery means the core is working AS HARD as the legs this phase. 5 sets of dead bug. Full ab wheel rollouts. 90-second RKC planks. You're building the ab definition in those reference photos right now. Saturday is Full Body Mastery."},
+ home:{yoga:"Cat-cow, bird dog, dead bug warm-up",ex:["Dead Bug — 5×12 · 3-count extension",
+  "Ab Wheel or Sliding Plank — 4×10",
+  "Leg Raise — 4×12",
+  "Hollow Body Hold — 4×30s",
+  "Plank — 4×90s · squeeze everything",
+  "Bicycle Crunch — 4×30",
+  "Side Plank with Hip Dip — 3×15 each"],
+  cardio:"Walk 25 min focused",
+  tip:"Deepest core work of the plan. Saturday is Full Body Mastery."},
+ flare:["🧘🏾 Core yin — supported bridge, child's pose, lying twist","🌸 Diaphragmatic breathing 10 min — core reset from inside","💛 Gentle cat-cow 5 min · gentle dead bug 2×5 if energy allows","• Light movement only"],
+ flareTip:"Core Mastery on a flare day — your core is healing and resetting. That's its own kind of mastery.",
+ note:"Day 65 · Phase 3 Session 2. Core Mastery. Deepest core volume of the 90-day plan."},
+
+{date:"Aug 28",wd:"Fri",week:9,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — core recovery emphasis","PT session — Thursday's core session was intense. Communicate.","Focus: thoracic release · psoas stretch · diaphragm opening"],cardio:"Easy walk",tip:"Saturday is Full Body Mastery — a 50-minute session combining everything Phase 3 has built. PT today prepares your full system."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — core recovery","PT session — Thursday debrief","Focus: psoas stretch, thoracic mobility"],cardio:"Easy walk",tip:"Saturday is Full Body Mastery. PT today prepares you."}},
+
+{date:"Aug 29",wd:"Sat",week:9,type:"Full Body Mastery",workout:true,
+ gym:{yoga:"7 sun salutations + full body joint mobility — nothing cold today",ex:["MASTERY CIRCUIT — 5 rounds with 2 min rest between rounds:",
+  "• Leg Press 10 reps · 2-count eccentric",
+  "• Barbell Hip Thrust 10 reps · PAUSED at top",
+  "• Lat Pulldown 10 reps",
+  "• Cable Row 10 reps",
+  "• Dead Bug 10 reps",
+  "• Bicycle Crunch 20 reps",
+  "| After all 5 rounds:",
+  "Stairmaster 25 min — Mastery pace: 4 min hard / 1 min easy"],
+  cardio:"Stairmaster 25 min (post-circuit)",
+  tip:"Full Body Mastery. 5 rounds of 6 exercises. Paused hip thrusts built into a circuit. Week 9 complete — Legacy Week starts Monday. You're 9 weeks in. 3 remain."},
+ home:{yoga:"7 sun salutations + full body mobility",ex:["MASTERY CIRCUIT — 5 rounds · 2 min rest:",
+  "• Sumo Squat 10 · 2-count eccentric",
+  "• Couch Hip Thrust 10 · PAUSED",
+  "• Band Row 10",
+  "• Band Pull-Apart 15",
+  "• Dead Bug 10",
+  "• Bicycle Crunch 20",
+  "| After all 5 rounds: Jump Rope 20 min"],
+  cardio:"Jump rope 20 min post-circuit",
+  tip:"Full Body Mastery circuit complete. Week 9 done — 3 weeks remain. Legacy Week begins Monday."},
+ flare:["🧘🏾 Full body restorative yoga — long supported holds","🌸 Progressive muscle relaxation · full body scan","💛 Anti-inflammatory focus: omega-3, turmeric, leafy greens","• Light walk 15 min at most"],
+ flareTip:"Mastery includes knowing when your body needs rest over stimulus. Today the mastery is rest.",
+ note:"Day 67 · Phase 3 Session 3. Full Body Mastery circuit. Week 9 complete."},
+
+/* ── WEEK 10: LEGACY ── */
+{date:"Aug 30",wd:"Sun",week:10,type:"REST",workout:false,
+ gym:{ex:["Week 9 is complete. Full rest before Legacy Week.","Legacy Week is about building something that outlasts the 90 days","High protein today · anti-inflammatory foods · hydration","Optional: meditation or journaling on what this journey has meant"],cardio:"None",tip:"Week 9 done. Legacy Week starts tomorrow. Rest today — Tuesday's Lower Body Legacy will be the most demanding lower body session of the entire 90 days."},
+ home:{ex:["Full rest · Legacy Week begins tomorrow","Reflect on what 67 days of showing up has built","Anti-inflammatory foods and hydration","Rest completely"],cardio:"None",tip:"Rest. Legacy Week starts tomorrow."},
+ note:"Rest Day. Week 10 — Legacy begins."},
+
+{date:"Aug 31",wd:"Mon",week:10,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — full body Legacy Week prep","PT session — Mastery Week complete. Let your therapist assess your progress.","Focus: hip flexors, hamstrings, shoulder mobility, core stability","Tell your PT: Tuesday is the heaviest lower body session of the 90-day plan"],cardio:"Easy walk",tip:"Legacy Week. Tuesday is Lower Body Legacy — the heaviest, most volume-rich lower body session of all 90 days. PT today prepares you. Come Tuesday with intention."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — Legacy Week preparation","PT session — Mastery Week debrief","Focus: full body assessment and prep"],cardio:"Easy walk",tip:"Tuesday is the heaviest lower body session of the entire plan. PT today builds your capacity for it."}},
+
+{date:"Sep 1",wd:"Tue",week:10,type:"Lower Body Legacy",workout:true,
+ gym:{yoga:"Deep pigeon 4 min each side · hip flexor lunge 2 min · dynamic swings",ex:["Hip Thrust — 6×10 · PAUSED · heaviest load of the entire 90 days · 3s at top",
+  "Leg Press — 5×8 · maximum loaded · 3-count eccentric · drive hard",
+  "Romanian Deadlift — 4×8 · TEMPO: 5-count down · 1-count up",
+  "Bulgarian Split Squat — 4×10 each · dumbbells · pause 1s at bottom",
+  "Cable Pull-Through — 4×15 · maximum glute stretch and squeeze",
+  "Lying Leg Curl (single leg) — 3×10 each · unilateral focus",
+  "Hip Abduction — 3×25"],
+  cardio:"Stairmaster 30 min — LEGACY PACE: 5 min hard / 1 min moderate",
+  tip:"This is the session. 6 sets of paused hip thrusts. The heaviest lower body work of your life. 30 minutes of Stairmaster after. This is Lower Body Legacy — the workout that defines the change. Thursday is Upper Body Legacy."},
+ home:{yoga:"Deep pigeon 4 min each + hip flexor lunge",ex:["Couch Hip Thrust — 6×10 · PAUSED · maximum weight · 3s hold",
+  "Sumo Squat — 5×8 · deepest range · 3-count eccentric",
+  "Single-Leg RDL — 4×8 each · TEMPO: 5-count down",
+  "Single-Leg Glute Bridge — 4×12 each · full extension",
+  "Donkey Kickback (band) — 3×20 each · full extension + hold",
+  "Side-Lying Clamshell (band) — 3×25 each"],
+  cardio:"Jump rope 28 min intervals",
+  tip:"6 sets of paused hip thrusts. The most demanding lower body session of the plan. Thursday is Upper Body Legacy."},
+ flare:["🧘🏾 Lower body yin — extended pigeon, butterfly, lying spinal twist","🌸 Legs up the wall 20 min · inflammation management","💛 Full anti-inflammatory protocol today","• Easy walk 10 min · no hills"],
+ flareTip:"Lower Body Legacy can't be rushed when your body is flaring. Rest today — the legacy is built in 90 days, not one session.",
+ note:"Day 70 · Phase 3 Session 4. Lower Body Legacy. Heaviest lower body session of the 90-day plan."},
+
+{date:"Sep 2",wd:"Wed",week:10,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — deep glute and hamstring recovery","PT session — Tuesday was the heaviest lower body of the plan. Share everything.","Focus: piriformis release · glute deep tissue · IT band · lumbar decompression"],cardio:"Easy walk",tip:"Thursday is Upper Body Legacy — pulling heavier than Phase 2, with new movements. PT today helps your lower body recover while your upper body prepares."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — deep lower body recovery","PT session — Lower Body Legacy debrief","Focus: piriformis, glute, hamstring release"],cardio:"Easy walk",tip:"Thursday is Upper Body Legacy. PT today recovers your lower body."}},
+
+{date:"Sep 3",wd:"Thu",week:10,type:"Upper Body Legacy",workout:true,
+ gym:{yoga:"Downward dog flow × 10 · thread the needle · thoracic rotations",ex:["Lat Pulldown (wide grip) — 5×10 · heaviest of the plan",
+  "Seated Cable Row — 5×10 · heaviest of the plan · elbows drive back",
+  "One-Arm Dumbbell Row — 4×10 each · full stretch at bottom",
+  "Straight Arm Pulldown — 3×15 · lat isolation",
+  "Cable Face Pull — 3×20 · shoulder health + rear delt",
+  "EZ Bar Curl — 4×10 · controlled",
+  "Incline Dumbbell Curl — 4×8 · long head emphasis",
+  "Hammer Curl — 3×12",
+  "Plank — 3×90s"],
+  cardio:"20 min incline treadmill walk",
+  tip:"Upper Body Legacy. Your back has been pulling heavier each week since June 24 — this is where it shows. Saturday is Full Body Legacy — one of the biggest sessions of Phase 3."},
+ home:{yoga:"Downward dog flow × 10, thread the needle, thoracic rotations",ex:["Band Pull-Apart — 5×25",
+  "Band Row — 5×15 · anchored strong",
+  "Single-Arm Row — 4×12 each",
+  "Straight Arm Band Pulldown — 3×15",
+  "Band Bicep Curl — 4×12",
+  "Incline Curl (on floor, lying back) — 4×10",
+  "Hammer Curl — 3×12",
+  "Plank — 3×90s"],
+  cardio:"Walk 25 min at fast pace",
+  tip:"Heaviest upper body of the plan. Saturday is Full Body Legacy."},
+ flare:["🧘🏾 Upper body yin — thread the needle, puppy pose, chest opener long holds","🌸 Gentle shoulder and chest stretch 15 min","💛 Bicep stretch and lat stretch gentle holds","• Rest all strength work"],
+ flareTip:"Upper body rest today. The legacy is 90 days long — one flare day doesn't erase the progress.",
+ note:"Day 72 · Phase 3 Session 5. Upper Body Legacy. Heaviest pulling session of the plan."},
+
+{date:"Sep 4",wd:"Fri",week:10,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — upper body and lat recovery","PT session — Upper Body Legacy was significant. Share the session.","Focus: lat release · bicep tendon stretch · thoracic mobility"],cardio:"Easy walk",tip:"Saturday is Full Body Legacy — the most comprehensive single session of the plan. PT today sets you up for it. Rest your pulling muscles tonight."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — lat and upper body recovery","PT session — Thursday debrief","Focus: lat stretch, thoracic mobility"],cardio:"Easy walk",tip:"Saturday is Full Body Legacy. PT today prepares you for it."}},
+
+{date:"Sep 5",wd:"Sat",week:10,type:"Full Body Legacy",workout:true,
+ gym:{yoga:"8 sun salutations + full body joint circuit — nothing tight",ex:["LEGACY CIRCUIT — 6 rounds · 90s rest between rounds:",
+  "• Leg Press 10 reps · 2-count eccentric",
+  "• Barbell Hip Thrust 10 reps · PAUSED",
+  "• Lat Pulldown 10 reps",
+  "• Cable Row 10 reps",
+  "• Dead Bug 10 reps",
+  "• Bicycle Crunch 25 reps",
+  "| After all 6 rounds:",
+  "Stairmaster 28 min · Legacy Pace: 5 min hard / 1 min easy",
+  "| Note: 6 rounds. Phase 3 Mastery was 5. Legacy adds one more."],
+  cardio:"Stairmaster 28 min post-circuit",
+  tip:"6 rounds. One more than Mastery Week. This is Legacy — it outlasts what you thought was possible. Week 10 complete. Week 11 is Transformation — the look changes."},
+ home:{yoga:"8 sun salutations + full body mobility",ex:["LEGACY CIRCUIT — 6 rounds · 90s rest:",
+  "• Sumo Squat 10 · 2-count eccentric",
+  "• Couch Hip Thrust 10 · PAUSED",
+  "• Band Row 10",
+  "• Band Pull-Apart 15",
+  "• Dead Bug 10",
+  "• Bicycle Crunch 25",
+  "| After circuit: Jump Rope 25 min"],
+  cardio:"Jump rope 25 min post-circuit",
+  tip:"6 rounds. Legacy adds one more than Mastery. Week 10 done. Transformation Week starts Monday."},
+ flare:["🧘🏾 Full body restorative yoga — complete restoration protocol","🌸 Cold/warm contrast on inflamed areas + legs up wall 20 min","💛 High anti-inflammatory meal plan today","• Gentle 15 min walk if energy allows"],
+ flareTip:"Full Body Legacy on a flare day. Your legacy isn't one session — it's 70+ days of showing up. Rest is part of that.",
+ note:"Day 74 · Phase 3 Session 6. Full Body Legacy. 6 rounds. Week 10 complete."},
+
+/* ── WEEK 11: TRANSFORMATION ── */
+{date:"Sep 6",wd:"Sun",week:11,type:"REST",workout:false,
+ gym:{ex:["Week 10 done. Rest before Transformation Week.","Transformation Week is the week you see the change you've been building","Anti-inflammatory foods: aim for maximum omega-3 and greens today","Optional: take progress photos to compare at the end of next week"],cardio:"None",tip:"10 weeks complete. Rest today. Transformation Week starts tomorrow — your body is about to show you what 70 days of discipline built."},
+ home:{ex:["Full rest · Transformation Week begins tomorrow","Anti-inflammatory priority","Optional: progress photos","Rest completely"],cardio:"None",tip:"Rest. Transformation Week starts tomorrow."},
+ note:"Rest Day. Week 11 — Transformation begins."},
+
+{date:"Sep 7",wd:"Mon",week:11,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — Legacy Week recovery + Transformation prep","PT session — share your 10-week progress. They should see measurable change.","Focus: full body assessment · note any improvements in range of motion","Transformation Week introduces drop sets on the final set of major lifts"],cardio:"Easy walk",tip:"Tuesday is Lower Body Transformation — paused reps, tempo, and for the first time: drop sets on your final hip thrust and leg press set. PT today prepares you."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — Transformation prep","PT session — 10-week assessment","Focus: range of motion, mobility improvement"],cardio:"Easy walk",tip:"Tuesday introduces drop sets. PT today sets you up for the most technically demanding lower body session of the plan."}},
+
+{date:"Sep 8",wd:"Tue",week:11,type:"Lower Body Transformation",workout:true,
+ gym:{yoga:"Extended pigeon 3 min each + dynamic hip mobility",ex:["Hip Thrust — 5×10 · PAUSED · DROP SET on final set: reduce weight 20%, do 10 more reps",
+  "Leg Press — 5×8 · DROP SET on final set: reduce weight 20%, do 12 more reps",
+  "Romanian Deadlift — 4×8 · TEMPO: 4-count eccentric · feel every fiber",
+  "Bulgarian Split Squat — 4×10 each · dumbbells",
+  "Cable Pull-Through — 3×15 · max glute stretch",
+  "Hip Abduction — 4×25 · slow and intentional"],
+  cardio:"Stairmaster 30 min · Transformation pace: 5 min hard / 1 min moderate",
+  tip:"Drop sets mean you do your max weight, then immediately drop 20% and keep going. You just extended a 10-rep set into 20 reps without rest. This is what Transformation Week feels like in your glutes. Thursday is Core Transformation."},
+ home:{yoga:"Extended pigeon + dynamic hip mobility",ex:["Couch Hip Thrust — 5×10 · PAUSED · DROP: remove weight for 10 more reps",
+  "Sumo Squat — 5×8 · final set: drop to lighter weight for 12 more reps",
+  "Single-Leg RDL — 4×8 each · 4-count eccentric",
+  "Reverse Lunge — 4×10 each",
+  "Glute Bridge (band) — DROP: max resistance × 15, remove band × 15",
+  "Fire Hydrant — 3×20 each"],
+  cardio:"Jump rope 28 min intervals",
+  tip:"Drop sets introduced. You do max resistance, then immediately continue with lighter load. Transformation is earned rep by rep. Thursday is Core Transformation."},
+ flare:["🧘🏾 Lower body yin long holds — pigeon 3 min each, butterfly, legs up wall","🌸 Anti-inflammatory protocol: tart cherry, turmeric, magnesium","💛 Complete lower body rest from loading","• Easy flat walk 10 min"],
+ flareTip:"Transformation Day flare protocol. The transformation includes how well you manage your fibromyalgia. Rest is part of the journey.",
+ note:"Day 77 · Phase 3 Session 7. Lower Body Transformation. Drop sets introduced — new stimulus, new change."},
+
+{date:"Sep 9",wd:"Wed",week:11,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (20 min) — drop set recovery emphasis","PT session — Tuesday's drop sets created new muscle damage. Communicate.","Focus: deep glute release · piriformis · hip flexor"],cardio:"Easy walk",tip:"Thursday is Core Transformation — drop sets on the final core set. PT today recovers your legs so your core carries tomorrow."},
+ home:{ex:["🧘🏾 Morning yoga (20 min) — lower body recovery","PT session — drop set debrief","Focus: glute, piriformis, hip flexor release"],cardio:"Easy walk",tip:"Thursday is Core Transformation. PT today recovers your legs."}},
+
+{date:"Sep 10",wd:"Thu",week:11,type:"Core Transformation",workout:true,
+ gym:{yoga:"Core activation: cat-cow, bird dog, dead bug flow",ex:["Dead Bug — 5×12 · each rep 3-count extension",
+  "Ab Wheel Rollout — 5×10 · full extension · no collapse",
+  "Leg Raise — 4×12 · controlled · no momentum",
+  "Cable Crunch — 4×20 · slow · full contraction",
+  "Bicycle Crunch — 5×30 · slow rotation · 2-count each side",
+  "Plank — 4×90s · RKC: squeeze everything",
+  "DROP: Side Plank 60s each → hold 30s each after · no break"],
+  cardio:"20 min incline treadmill walk",
+  tip:"5 sets of dead bug. 5 sets of ab wheel. Drop set side planks. Your core is being transformed from the inside out right now. Saturday is Full Body Transformation — the biggest single session of Phase 3."},
+ home:{yoga:"Cat-cow, bird dog, dead bug activation",ex:["Dead Bug — 5×12 · 3-count extensions",
+  "Ab Wheel — 5×10",
+  "Leg Raise — 4×12",
+  "Bicycle Crunch — 5×30 · 2-count rotation",
+  "Hollow Body Hold — 4×35s",
+  "Plank — 4×90s",
+  "DROP: Side Plank 60s each → 30s each immediately after"],
+  cardio:"Walk 25 min",
+  tip:"Drop set planks. Core Transformation. Saturday is the biggest full body session of Phase 3."},
+ flare:["🧘🏾 Core yin — supported bridge, child's pose, lying twist, breathwork","🌸 Diaphragmatic breathing 15 min — core activation without load","💛 Gentle cat-cow only · no ab work if pain present","• Rest"],
+ flareTip:"Core Transformation flare day. The deepest core work is learning to breathe through difficulty — that's what you're doing today.",
+ note:"Day 79 · Phase 3 Session 8. Core Transformation. Drop sets reach the core."},
+
+{date:"Sep 11",wd:"Fri",week:11,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — core and full body recovery","PT session — Thursday's core session was the most demanding of the plan","Focus: psoas release · thoracic opening · diaphragm reset"],cardio:"Easy walk",tip:"Saturday is Full Body Transformation — 7 rounds of a circuit incorporating drop sets. The biggest single session of all 90 days. PT today is your final prep. Come Saturday with everything."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — core recovery","PT session — Thursday debrief","Focus: psoas stretch, thoracic mobility"],cardio:"Easy walk",tip:"Saturday is Full Body Transformation. PT today is your final prep."}},
+
+{date:"Sep 12",wd:"Sat",week:11,type:"Full Body Transformation",workout:true,
+ gym:{yoga:"9 sun salutations + complete joint mobility — everything must be warm",ex:["TRANSFORMATION CIRCUIT — 7 rounds · 90s rest between rounds:",
+  "• Leg Press 10 reps · 2-count eccentric",
+  "• Barbell Hip Thrust 10 reps · PAUSED",
+  "• Lat Pulldown 10 reps",
+  "• Cable Row 10 reps",
+  "• Dead Bug 10 reps",
+  "• Bicycle Crunch 30 reps",
+  "| After all 7 rounds — DROP SET FINISHER:",
+  "• Hip Thrust: max load × 8, drop 20% × 12, drop 20% more × 15",
+  "| Then: Stairmaster 30 min",
+  "| Total session: ~65 minutes — longest of the plan"],
+  cardio:"Stairmaster 30 min post-circuit",
+  tip:"7 rounds. Drop set finisher. 30 minutes of Stairmaster. This is the longest, hardest session of all 90 days. You are being transformed in real time. Week 11 complete. One week left — Ascension Week. 3 sessions remain."},
+ home:{yoga:"9 sun salutations + full joint mobility",ex:["TRANSFORMATION CIRCUIT — 7 rounds · 90s rest:",
+  "• Sumo Squat 10 · 2-count eccentric",
+  "• Couch Hip Thrust 10 · PAUSED",
+  "• Band Row 10",
+  "• Band Pull-Apart 15",
+  "• Dead Bug 10",
+  "• Bicycle Crunch 30",
+  "| DROP SET FINISHER: Hip Thrust max × 8, remove weight × 12, bodyweight × 15",
+  "| Then: Jump Rope 28 min"],
+  cardio:"Jump rope 28 min post-circuit",
+  tip:"7 rounds plus drop set finisher. Longest session of the plan. 3 sessions remain — Ascension Week is next."},
+ flare:["🧘🏾 Complete restorative yoga protocol — all supported poses, 40 min","🌸 Full anti-inflammatory day — every meal, every drink","💛 Legs up wall 20 min · ice packs where needed · rest completely","• Stay horizontal as much as possible today"],
+ flareTip:"Full Body Transformation on a flare day — the transformation that matters most is how you treat your body on the hardest days. Rest fully.",
+ note:"Day 81 · Phase 3 Session 9. Full Body Transformation. 7 rounds + drop set finisher. Longest session of the 90-day plan."},
+
+/* ── WEEK 12: ASCENSION ── */
+{date:"Sep 13",wd:"Sun",week:12,type:"REST",workout:false,
+ gym:{ex:["Week 11 done. Full rest before Ascension Week — the final week.","3 workout sessions remain. This is the last rest day of the 90-day plan.","Reflect: who were you on June 24? Who are you today?","Anti-inflammatory foods. Protein. Water. Sleep."],cardio:"None",tip:"Last rest day of the plan. 3 sessions left. Rest like a champion today — you will finish like one."},
+ home:{ex:["Full rest · final rest day of the 90-day journey","Reflect on the transformation","Anti-inflammatory foods and hydration","Sleep as long as your body needs"],cardio:"None",tip:"Last rest day. 3 sessions remain. Rest."},
+ note:"Last Rest Day. Week 12 — Ascension begins. 9 sessions into Phase 3."},
+
+{date:"Sep 14",wd:"Mon",week:12,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (30 min) — Ascension Week preparation · the fullest practice of the plan","PT session — 3 sessions left. This is the final Phase 3 PT session before the Ascension workouts.","Focus: full body preparation · hip flexors, lats, glutes, core · everything","Tell your PT: this is the final week. You want to peak."],cardio:"Easy walk",tip:"Ascension Week. 3 workout sessions remain. PT today is your final physical preparation. Tuesday is Lower Body Ascension — paused reps, tempo, drop sets, and the heaviest load you've ever moved."},
+ home:{ex:["🧘🏾 Morning yoga (30 min) — fullest practice of the plan","PT session — final week preparation","Focus: full body assessment and prep for peak sessions"],cardio:"Easy walk",tip:"3 sessions left. PT today is your final preparation before Ascension workouts begin."}},
+
+{date:"Sep 15",wd:"Tue",week:12,type:"Lower Body Ascension",workout:true,
+ gym:{yoga:"Extended pigeon 4 min each + hip flexor lunge + full leg swing series",ex:["Hip Thrust — 6×10 · PAUSED 3s · DROP on final set: -20% × 10, -20% × 12",
+  "Leg Press — 5×8 · maximum load · DROP on final set: -20% × 10, -20% × 15",
+  "Romanian Deadlift — 5×8 · TEMPO: 5-count eccentric · the slowest reps of the plan",
+  "Bulgarian Split Squat — 4×10 each · dumbbells · 2s pause at bottom",
+  "Cable Pull-Through — 4×15 · maximum stretch and squeeze",
+  "Single-Leg Glute Bridge — 4×12 each · paused at top",
+  "Hip Abduction — 3×30"],
+  cardio:"Stairmaster 30 min — ASCENSION PACE: 6 min hard / 2 min moderate",
+  tip:"Paused reps + tempo + drop sets in one session. Lower Body Ascension is the most technically demanding lower body workout of the 90 days. This is where you find out how much you've built. Thursday is Core + Arms Ascension. Then Saturday — you finish."},
+ home:{yoga:"Extended pigeon 4 min each + hip flexor lunge + leg swings",ex:["Couch Hip Thrust — 6×10 · PAUSED 3s · DROP: remove weight × 10, bodyweight × 12",
+  "Sumo Squat — 5×8 · DROP on final set: bodyweight × 15 immediately",
+  "Single-Leg RDL — 5×8 each · 5-count eccentric",
+  "Reverse Lunge — 4×10 each · 2s pause at bottom",
+  "Single-Leg Glute Bridge — 4×12 each · pause at top",
+  "Fire Hydrant — 3×25 each",
+  "Donkey Kickback (band) — 3×20 each"],
+  cardio:"Jump rope 30 min — Ascension pace",
+  tip:"Paused + tempo + drop sets. Thursday is Core + Arms Ascension. Then Saturday — the finale."},
+ flare:["🧘🏾 Lower body yin — extended holds · pigeon 4 min each · butterfly · wall hang","🌸 Elevation + cold compress on glutes and hamstrings","💛 Maximum anti-inflammatory protocol · this is the final week","• Gentle walk 15 min only"],
+ flareTip:"Ascension Week flare day. You've ascended 84 days of work. Today you protect that. The finale is still yours.",
+ note:"Day 84 · Phase 3 Session 10. Lower Body Ascension. Heaviest + most technical lower body of the plan."},
+
+{date:"Sep 16",wd:"Wed",week:12,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (25 min) — final recovery before the last two sessions","PT session — tell your therapist this is the second-to-last PT session of the plan","Focus: deep glute and hamstring release after Tuesday · hip flexor opening","Ask your PT what measurable progress they've seen since June 24"],cardio:"Easy walk",tip:"Thursday is Core + Arms Ascension. Saturday is the finale. Two more. PT today recovers you completely so you can finish with everything."},
+ home:{ex:["🧘🏾 Morning yoga (25 min) — penultimate recovery session","PT session — second-to-last session of the plan","Focus: full body recovery for the final two sessions"],cardio:"Easy walk",tip:"Two sessions remain. PT today recovers your body for both of them."}},
+
+{date:"Sep 17",wd:"Thu",week:12,type:"Core + Arms Ascension",workout:true,
+ gym:{yoga:"Thoracic rotation flow + downward dog × 10 + thread the needle each side",ex:["Lat Pulldown — 5×10 · heaviest of the plan · DROP on final set: -20% × 12",
+  "Cable Row — 5×10 · DROP on final: -20% × 12",
+  "One-Arm Row — 4×10 each · full stretch",
+  "EZ Bar Curl — 4×10 · DROP on final: -20% × 12",
+  "Incline Curl — 3×10",
+  "Dead Bug — 5×12 · 3-count",
+  "Ab Wheel — 5×10 · this is it",
+  "Cable Crunch — 4×20",
+  "Bicycle Crunch — 5×30",
+  "Plank — 4×90s · everything squeezed · this may be your last plank"],
+  cardio:"20 min incline walk",
+  tip:"Drop sets on every major lift. This is Core + Arms Ascension — the penultimate session of 90 days. One remains: Saturday's Full Body Goddess. Rest your body tonight. Tomorrow is your final PT session."},
+ home:{yoga:"Thoracic rotation + downward dog × 10 + thread the needle",ex:["Band Pull-Apart — 5×25",
+  "Band Row — 5×15 · DROP: lighter band × 10 immediately after last set",
+  "Band Curl — 4×12 · DROP: final set lighter × 12",
+  "Incline Curl — 3×10",
+  "Dead Bug — 5×12 · 3-count",
+  "Ab Wheel — 5×10",
+  "Bicycle Crunch — 5×30",
+  "Plank — 4×90s"],
+  cardio:"Walk 25 min fast",
+  tip:"Second to last session. One remains: Full Body Goddess. Saturday closes 90 days."},
+ flare:["🧘🏾 Upper body yin — thread the needle, puppy pose, chest opener full practice","🌸 Gentle lat and bicep stretch 15 min","💛 Complete upper body rest","• Walk gently"],
+ flareTip:"Core + Arms Ascension flare day. Your arms and core have been ascending for 86 days — rest is the final ascension technique.",
+ note:"Day 86 · Phase 3 Session 11. Core + Arms Ascension. Second-to-last session. Drop sets on everything."},
+
+{date:"Sep 18",wd:"Fri",week:12,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Morning yoga (30 min) — the final yoga + PT session of Goddess Body","PT session — this is it. The last PT session of the 90-day plan.","Tell your therapist: you're finishing tomorrow. Let them prepare you.","Focus: full body preparation · everything open and ready for the finale","Take a moment with your PT to acknowledge what these 12 weeks have built"],cardio:"Easy walk",tip:"Tomorrow is the finale. Full Body Goddess — the last session of 90 days. PT today is the final physical preparation. Come tomorrow with intention, gratitude, and everything you have left."},
+ home:{ex:["🧘🏾 Morning yoga (30 min) — final PT + yoga session of the plan","PT session — final session of the 90-day journey","Focus: full body preparation for tomorrow's finale","Take a moment to honor what this combination of PT + yoga + training has done"],cardio:"Easy walk",tip:"Tomorrow is Day 90. Full Body Goddess. Tonight: rest, eat well, reflect on 89 days of showing up."}},
+
+{date:"Sep 19",wd:"Sat",week:12,type:"Full Body Goddess",workout:true,
+ gym:{yoga:"10 sun salutations — one for each month of the year you spent on this. Full body. Full breath. Full presence.",ex:["FULL BODY GODDESS — The Finale:",
+  "AMRAP 30 minutes — Log your rounds (compare to Aug 13 AMRAP):",
+  "• Leg Press 10 reps",
+  "• Barbell Hip Thrust 10 reps · PAUSED",
+  "• Lat Pulldown 10 reps",
+  "• Cable Row 10 reps",
+  "• Dead Bug 10 reps",
+  "• Bicycle Crunch 30 reps",
+  "| Then — GODDESS FINISHER:",
+  "• Hip Thrust drop set: max × 10, -20% × 10, -20% × 10 (30 total reps no rest)",
+  "• Plank 2 min — hold it all the way",
+  "| Then:",
+  "Stairmaster 30 min — Goddess pace · whatever you have left"],
+  cardio:"Stairmaster 30 min (finale)",
+  tip:"🏆 90 days. 26 sessions. You started June 24 with a foundation. You are finishing September 19 with a Goddess Body. Take your final progress photos — compare June 24, July 23, August 22, and today. The Teyana Taylor and Kehlani physique you came in with as a reference isn't just a reference anymore. It's a direction. And you are ON THE PATH. Monday is your final PT + yoga day. Come back and honor the work."},
+ home:{yoga:"10 sun salutations — one for each decade of your strength",ex:["FULL BODY GODDESS — Finale:",
+  "AMRAP 30 minutes:",
+  "• Sumo Squat 10",
+  "• Couch Hip Thrust 10 · PAUSED",
+  "• Band Row 10",
+  "• Band Pull-Apart 15",
+  "• Dead Bug 10",
+  "• Bicycle Crunch 30",
+  "| GODDESS FINISHER:",
+  "• Hip Thrust drop: max weight × 10, lighter × 10, bodyweight × 10 (no rest)",
+  "• Plank 2 min",
+  "| Jump Rope 28 min — final Stairmaster equivalent"],
+  cardio:"Jump rope 28 min finale",
+  tip:"🏆 90 days. 26 sessions. The kettlebell and the couch built a Goddess Body. Take your final photos. Compare June 24 to September 19. You showed up every time it mattered — and on flare days, you showed up differently but you still showed up. Monday is your final PT + yoga day."},
+ flare:["🧘🏾 Finale yoga — full practice honoring the journey · 40 min minimum","🌸 Everything you need to feel taken care of today","💛 Celebration meal — anti-inflammatory AND delicious","• A gentle walk to honor 90 days of showing up"],
+ flareTip:"🏆 Day 88 on a flare day. The Goddess Body wasn't built despite your fibromyalgia — it was built AROUND it. The finale yoga today is your session. You finished.",
+ note:"Day 88 · Phase 3 Session 12. FULL BODY GODDESS. The finale. 90 days complete at the end of Monday."},
+
+{date:"Sep 20",wd:"Sun",week:12,type:"REST",workout:false,
+ gym:{ex:["You finished the final workout yesterday","Final rest day of the 90-day Goddess Body journey","Take your final progress photos if you haven't","Anti-inflammatory celebration meal tonight — honor what you built"],cardio:"None",tip:"The last workout is done. Tomorrow is your final PT + yoga session — a celebration of what 90 days built. Rest today and feel what you've created."},
+ home:{ex:["Final workout complete","Last rest day — tomorrow closes the 90-day journey with PT and yoga","Take final photos · compare all 4 checkpoints","Rest · celebrate · reflect"],cardio:"None",tip:"The work is done. Tomorrow closes the journey. Rest."},
+ note:"Final Rest Day. 89 days complete. Tomorrow closes 90 days."},
+
+{date:"Sep 21",wd:"Mon",week:12,type:"PT + Yoga",workout:false,
+ gym:{ex:["🧘🏾 Final morning yoga of the Goddess Body journey — 30 min minimum","PT session — the final session of the plan","Tell your therapist: you just completed 90 days. Show them your progress photos.","Focus: celebration movement · full body appreciation · breathing and gratitude","Note what your PT observes has changed in your body since June 24"],cardio:"Easy walk to mark the final day",tip:"🏆 90 days. Goddess Body complete. The plan was built for your body, your condition, your life, your goals. You built a Teyana Taylor + Kehlani physique — not as a destination, but as a direction you are actively moving toward. Month 4 starts when you're ready. The Goddess keeps going."},
+ home:{ex:["🧘🏾 Final morning yoga — 30 minutes of gratitude and movement","PT session — final celebration session","Tell your therapist what this journey built in you · not just physically","Focus: honoring every part of the body that showed up for 90 days"],cardio:"A walk that means something",tip:"🏆 Day 90 complete. Goddess Body is done. The kettlebell, the couch, the bands, the yoga mat, the PT table — they built something real in 90 days. Now you carry it forward."},
+ note:"Day 90 · FINAL DAY · Goddess Body 90-Day Plan Complete. The Goddess built herself."},
 ];
 
 /* ════════ MODULE-LEVEL CONSTANTS ════════ */
@@ -1245,8 +2083,575 @@ const DN = {
   {name:"Dinner",time:"6–7 PM",items:["Celebration dinner: Grilled shrimp (6 oz) with garlic and herbs","Jasmine rice (1 cup)","Roasted asparagus + lemon","Fresh fruit dessert: berries, mango, honey drizzle"]},
  ],smoothie:{name:"30-Day Goddess Victory Smoothie",i:["1 cup frozen mango","½ cup frozen berries","1 cup spinach","1 cup almond milk","1.5 scoops vanilla protein","1 tsp honey","½ tsp turmeric","Few mint leaves"]},
  tea:"🍵 AM: Matcha latte (final session — your most powerful)  ·  PM: Hibiscus tea (celebrate with the most vibrant tea of the program — you are a Goddess)",
+ soup:null},,
+"Jul 24":{cal:"2,590",p:"140g",c:"295g",f:"72g",
+ note:"Day 31 — Phase 2 begins. Rising phase. Higher volume, heavier loads. Your body is ready — Phase 1 built the foundation Phase 2 builds on.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole grain toast (2 slices) + smashed avocado + cherry tomatoes + everything bagel seasoning","Smoothie: spinach + mango + almond milk + protein powder"]},
+  {name:"Lunch",time:"12–1 PM",items:["Ground turkey taco bowl: seasoned turkey + cilantro rice + black beans + pico de gallo + guacamole (corn tortillas on side)","Hibiscus iced tea"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Apple slices + sunflower seed butter (2 tbsp) + cinnamon"]},
+  {name:"Dinner",time:"6–7 PM",items:["Teriyaki chicken thighs (6 oz) + jasmine rice (1 cup) + steamed bok choy + sesame seeds","Ginger tea"]}
+ ],smoothie:{name:"Berry Rebuild",i:["1 cup frozen mixed berries","1 cup almond milk","1 scoop chocolate protein","½ cup oats","1 tbsp honey","½ tsp cinnamon"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
  soup:null},
+"Jul 25":{cal:"2,380",p:"125g",c:"270g",f:"68g",
+ note:"Day 35 — PT and yoga. Check in with how the supersets landed. Monday setup before Tuesday's leg power session.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Quinoa porridge: cooked quinoa + almond milk + cinnamon + walnuts + blueberries + agave","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Grilled chicken breast (5 oz) + wild rice (1 cup) + roasted vegetables (zucchini, squash, peppers) + olive oil","Anti-inflammatory golden milk: turmeric + almond milk + ginger + honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Shrimp pasta: jumbo shrimp + whole wheat linguine + roasted tomatoes + fresh basil + garlic + olive oil (light parmesan)","Sparkling water"]}
+ ],smoothie:{name:"Tropical Strength",i:["½ cup frozen mango","½ cup frozen papaya","1 cup spinach","1 cup coconut milk","1 scoop vanilla protein","1 tsp ginger"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Jul 26":{cal:"2,570",p:"140g",c:"295g",f:"72g",
+ note:"Day 36 — Rising phase continues. Leg day with heavier hip thrusts. Progressive overload is the name of the game now.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Sweet potato hash: diced sweet potato + bell peppers + black beans + cumin, sautéed in olive oil","Fruit cup: watermelon + grapes + orange slices"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken thigh + sweet potato: baked chicken thigh (6 oz) + roasted sweet potato + sautéed broccolini + lemon herb sauce","Sparkling water"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Rice cakes (2) + avocado mash + sea salt + red pepper flakes"]},
+  {name:"Dinner",time:"6–7 PM",items:["Mahi-mahi (5 oz) with mango-avocado salsa + coconut rice + grilled zucchini","Chamomile tea"]}
+ ],smoothie:{name:"Peach Power",i:["1 cup frozen peaches","1 cup almond milk","1 scoop vanilla protein","½ cup plain oats","1 tbsp honey","pinch of cardamom"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Jul 27":{cal:"2,270",p:"118g",c:"245g",f:"64g",
+ note:"Day 55 — Second-to-last Phase 2 rest day. One week of Phase 2 remaining. You're almost at 60 days.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Açaí bowl: açaí base + granola + mixed berries + mango chunks + coconut flakes + honey","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey chili (no bean version): ground turkey + diced tomatoes + bell pepper + corn + cumin + chili powder + served over rice","Hibiscus tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Ground turkey stuffed peppers: bell peppers filled with seasoned turkey + wild rice + diced tomatoes + herbs","Decaf green tea"]}
+ ],smoothie:{name:"Cherry Recovery",i:["1 cup frozen cherries","1 cup almond milk","1 scoop chocolate protein","4 oz tart cherry juice","1 tbsp almond butter (NO — use sunflower butter)","½ tsp cinnamon"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Jul 28":{cal:"2,320",p:"125g",c:"270g",f:"68g",
+ note:"Day 42 — New week PT+yoga. Tell your therapist you're in Phase 2 now — loads are heavier, recovery needs to match.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole wheat pancakes (2) with mixed berry compote + maple syrup","Orange juice (fresh squeezed)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Shrimp tacos (2): grilled shrimp + corn tortillas + slaw + avocado + lime crema (dairy-light) + cilantro","Agua fresca: watermelon + lime + mint"]},
+  {name:"Dinner",time:"6–7 PM",items:["Cod with herb crust (5 oz) + sweet potato mash + green beans almondine","Peppermint tea"]}
+ ],smoothie:{name:"Green Goddess Power",i:["2 cups spinach","½ cup frozen mango","1 green apple (cored)","1 cup coconut water","1 scoop vanilla protein","1 tbsp flaxseed"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Jul 29":{cal:"2,590",p:"140g",c:"295g",f:"72g",
+ note:"Day 43 — Lower body power surge. Bulgarian split squats make their debut. Fuel and recover hard.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Oatmeal with sliced peaches + almonds + cinnamon + brown sugar + almond milk","Matcha latte"]},
+  {name:"Lunch",time:"12–1 PM",items:["Cod po boy: baked cod (5 oz) + whole wheat hoagie roll + shredded cabbage + remoulade + pickles + sweet potato fries","Lemonade"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Chocolate protein shake + 4 oz tart cherry juice"]},
+  {name:"Dinner",time:"6–7 PM",items:["Chicken stir fry: chicken breast strips + broccoli + snap peas + carrots + jasmine rice + oyster sauce + ginger","Cucumber water"]}
+ ],smoothie:{name:"Watermelon Recovery",i:["1.5 cups fresh watermelon","½ cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tbsp honey","fresh mint leaves"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Jul 30":{cal:"2,380",p:"125g",c:"270g",f:"68g",
+ note:"Day 46 — Post-heavy leg PT. Your glutes and hamstrings worked hard yesterday. Let today do its repair work.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Rice cake (2) + almond butter alternative (sunflower butter) + honey + sliced strawberries","Protein shake: vanilla protein + almond milk + ice"]},
+  {name:"Lunch",time:"12–1 PM",items:["Baked cod + potato: herb-crusted cod (5 oz) + roasted baby potatoes + haricot verts + lemon","Lemon ginger water"]},
+  {name:"Dinner",time:"6–7 PM",items:["Scallop and asparagus: pan-seared scallops (5 oz) + roasted asparagus + wild rice + lemon butter (light dairy)","Sparkling water with lemon"]}
+ ],smoothie:{name:"Pomegranate Power",i:["½ cup pomegranate juice","½ cup frozen blueberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp turmeric"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Jul 31":{cal:"2,570",p:"140g",c:"295g",f:"72g",
+ note:"Day 47 — Back and core supersets. Phase 2 upper body is more volume than Phase 1. Eat well tonight.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Smoothie bowl: frozen mixed berries + spinach + protein powder + almond milk, topped with granola + kiwi + coconut","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Scallop rice: pan-seared scallops (5 oz) + jasmine rice + roasted asparagus + lemon butter (dairy-light)","Cucumber mint water"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Vanilla protein shake + almond milk + handful of berries blended in"]},
+  {name:"Dinner",time:"6–7 PM",items:["Turkey meatballs: turkey meatballs in tomato sauce + whole wheat spaghetti + side salad (mixed greens + vinaigrette)","Chamomile tea"]}
+ ],smoothie:{name:"Kiwi Strength",i:["2 kiwis (peeled)","1 cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tsp honey","½ tsp ginger"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 1":{cal:"2,440",p:"125g",c:"270g",f:"68g",
+ note:"Day 51 — Post-full-body-strength PT. Recovery at this intensity level is as important as the workout itself.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Corn tortilla (2) + black bean spread + sautéed peppers + salsa + avocado slices","Mango smoothie: mango + almond milk + turmeric"]},
+  {name:"Lunch",time:"12–1 PM",items:["Mahi-mahi tacos (2): grilled mahi + corn tortillas + mango-cucumber salsa + lime + shredded purple cabbage","Hibiscus iced tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Crab cakes (2 small): lump crab + breadcrumbs + old bay seasoning + baked, served with remoulade + corn + slaw","Hibiscus tea"]}
+ ],smoothie:{name:"Mango Turmeric Heal",i:["1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp turmeric","½ tsp ginger","1 tsp honey","black pepper pinch"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 2":{cal:"2,480",p:"140g",c:"295g",f:"72g",
+ note:"Day 52 — Lower body peak Phase 2. Personal records are happening today. High carb day for maximum performance.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Overnight oats: rolled oats + almond milk + mixed berries + honey + chia seeds","Green tea or matcha latte (oat milk)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Salmon rice bowl: grilled salmon (6 oz) + jasmine rice (1.25 cups) + edamame + avocado + sesame-ginger dressing","Sparkling water with lemon"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Protein shake in almond milk (1 scoop) + 4 oz tart cherry juice"]},
+  {name:"Dinner",time:"6–7 PM",items:["Salmon rice bowl: teriyaki glazed salmon (5 oz) + brown rice + edamame + shredded carrots + sesame-ginger sauce","Green tea (decaf)"]}
+ ],smoothie:{name:"Mango Muscle Builder",i:["1 cup frozen mango","1 cup kale","1 cup coconut water","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp turmeric"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 3":{cal:"2,260",p:"118g",c:"245g",f:"64g",
+ note:"Day 48 — Phase 2 Week 3 rest. Your body is actively building from the heavier loads. Feed it well today.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole grain toast (2 slices) + smashed avocado + cherry tomatoes + everything bagel seasoning","Smoothie: spinach + mango + almond milk + protein powder"]},
+  {name:"Lunch",time:"12–1 PM",items:["Salmon salad bowl: flaked baked salmon + mixed greens + cherry tomatoes + cucumber + avocado + lemon vinaigrette + farro","Anti-inflammatory golden milk"]},
+  {name:"Dinner",time:"6–7 PM",items:["Chicken tikka (dairy-light): chicken breast in spiced tomato-coconut milk sauce + basmati rice + naan bread (1 piece)","Cardamom tea"]}
+ ],smoothie:{name:"Berry Rebuild",i:["1 cup frozen mixed berries","1 cup almond milk","1 scoop chocolate protein","½ cup oats","1 tbsp honey","½ tsp cinnamon"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 4":{cal:"2,380",p:"125g",c:"270g",f:"68g",
+ note:"Day 58 — Pre-finale PT. Tomorrow is your Phase 2 lower body showcase. Come Wednesday primed.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Quinoa porridge: cooked quinoa + almond milk + cinnamon + walnuts + blueberries + agave","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey lettuce wraps: ground turkey + butter lettuce + shredded carrots + cucumbers + hoisin sauce + rice on side","Green tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Shrimp fried rice: shrimp + fried rice (flax egg) + peas + carrots + scallions + sesame oil + soy sauce","Sparkling water"]}
+ ],smoothie:{name:"Tropical Strength",i:["½ cup frozen mango","½ cup frozen papaya","1 cup spinach","1 cup coconut milk","1 scoop vanilla protein","1 tsp ginger"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 5":{cal:"2,570",p:"140g",c:"295g",f:"72g",
+ note:"Day 59 — Lower body Phase 2 finale. Progress photos. Compare to Day 30. The difference is real.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Sweet potato hash: diced sweet potato + bell peppers + black beans + cumin, sautéed in olive oil","Fruit cup: watermelon + grapes + orange slices"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken thigh + sweet potato: baked chicken thigh (6 oz) + roasted sweet potato + sautéed broccolini + lemon herb sauce","Sparkling water"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Rice cakes (2) + avocado mash + sea salt + red pepper flakes"]},
+  {name:"Dinner",time:"6–7 PM",items:["Ground beef (lean 90/10) tacos (2): seasoned beef + corn tortillas + shredded lettuce + tomato + avocado + salsa","Agua fresca"]}
+ ],smoothie:{name:"Peach Power",i:["1 cup frozen peaches","1 cup almond milk","1 scoop vanilla protein","½ cup plain oats","1 tbsp honey","pinch of cardamom"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 6":{cal:"2,440",p:"125g",c:"270g",f:"68g",
+ note:"Day 32 — PT and yoga recovery after Phase 2 Day 1. Let your therapist assess how your body responded to the step up in intensity.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Açaí bowl: açaí base + granola + mixed berries + mango chunks + coconut flakes + honey","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken soup: homemade chicken broth + chunks of chicken breast + rice noodles + ginger + bok choy + green onions","Chamomile tea with honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Baked mahi-mahi (5 oz) + garlic butter broccolini + jasmine rice + cherry tomato salad","Chamomile tea"]}
+ ],smoothie:{name:"Cherry Recovery",i:["1 cup frozen cherries","1 cup almond milk","1 scoop chocolate protein","4 oz tart cherry juice","1 tbsp almond butter (NO — use sunflower butter)","½ tsp cinnamon"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 7":{cal:"2,480",p:"140g",c:"295g",f:"72g",
+ note:"Day 33 — Phase 2 first strength session. Supersets are introduced — twice the work, twice the growth signal. Fuel to match the effort.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole wheat pancakes (2) with mixed berry compote + maple syrup","Orange juice (fresh squeezed)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey meatball pasta: whole wheat spaghetti (1.5 cups) + lean turkey meatballs + marinara + parmesan (light)","Water with lemon"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Mixed nuts (almonds, cashews, walnuts) + dark chocolate (1 oz, 70%+)"]},
+  {name:"Dinner",time:"6–7 PM",items:["Lemon herb salmon (6 oz) + roasted garlic potatoes + sautéed spinach with garlic and olive oil","Decaf chamomile tea"]}
+ ],smoothie:{name:"Green Goddess Power",i:["2 cups spinach","½ cup frozen mango","1 green apple (cored)","1 cup coconut water","1 scoop vanilla protein","1 tbsp flaxseed"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 8":{cal:"2,430",p:"125g",c:"270g",f:"68g",
+ note:"Day 37 — Mid-week recovery. Wednesday PT sets up Thursday full body. Hydrate, eat, restore.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Oatmeal with sliced peaches + almonds + cinnamon + brown sugar + almond milk","Matcha latte"]},
+  {name:"Lunch",time:"12–1 PM",items:["Ground turkey bowl: seasoned turkey + brown rice + roasted sweet potato + black beans + avocado + salsa","Peppermint tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Teriyaki chicken thighs (6 oz) + jasmine rice (1 cup) + steamed bok choy + sesame seeds","Ginger tea"]}
+ ],smoothie:{name:"Watermelon Recovery",i:["1.5 cups fresh watermelon","½ cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tbsp honey","fresh mint leaves"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 9":{cal:"2,540",p:"140g",c:"295g",f:"72g",
+ note:"Day 38 — Full body with intensity. Stairmaster extended to 25 min. Caloric surplus supports this increased workload.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Rice cake (2) + almond butter alternative (sunflower butter) + honey + sliced strawberries","Protein shake: vanilla protein + almond milk + ice"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken breast stir fry: sliced chicken (6 oz) + lo mein noodles + mixed veggies + teriyaki sauce","Water with mint"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Hummus (¼ cup) + cucumber slices + baby carrots + pita triangles (1)"]},
+  {name:"Dinner",time:"6–7 PM",items:["Shrimp pasta: jumbo shrimp + whole wheat linguine + roasted tomatoes + fresh basil + garlic + olive oil (light parmesan)","Sparkling water"]}
+ ],smoothie:{name:"Pomegranate Power",i:["½ cup pomegranate juice","½ cup frozen blueberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp turmeric"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 10":{cal:"2,240",p:"118g",c:"245g",f:"64g",
+ note:"Day 41 — Mid-Phase 2 rest. You've done 10 of 39 total sessions. Progress photos recommended.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Smoothie bowl: frozen mixed berries + spinach + protein powder + almond milk, topped with granola + kiwi + coconut","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken and rice (comforting): slow-cooked chicken breast (5 oz) + white rice (1 cup) + green peas + butter (light) + parsley","Chamomile tea + honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Mahi-mahi (5 oz) with mango-avocado salsa + coconut rice + grilled zucchini","Chamomile tea"]}
+ ],smoothie:{name:"Kiwi Strength",i:["2 kiwis (peeled)","1 cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tsp honey","½ tsp ginger"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 11":{cal:"2,440",p:"125g",c:"270g",f:"68g",
+ note:"Day 44 — Wednesday recovery. Between two heavy leg sessions — your PT is the bridge that keeps you injury-free.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Corn tortilla (2) + black bean spread + sautéed peppers + salsa + avocado slices","Mango smoothie: mango + almond milk + turmeric"]},
+  {name:"Lunch",time:"12–1 PM",items:["Salmon + quinoa: baked salmon (5 oz) + quinoa (1 cup) + steamed broccoli + lemon-dill dressing","Ginger tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Ground turkey stuffed peppers: bell peppers filled with seasoned turkey + wild rice + diced tomatoes + herbs","Decaf green tea"]}
+ ],smoothie:{name:"Mango Turmeric Heal",i:["1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp turmeric","½ tsp ginger","1 tsp honey","black pepper pinch"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 12":{cal:"2,480",p:"140g",c:"295g",f:"72g",
+ note:"Day 45 — Second lower body session of the week. Different angles, different muscle fiber recruitment.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Overnight oats: rolled oats + almond milk + mixed berries + honey + chia seeds","Green tea or matcha latte (oat milk)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Salmon rice bowl: grilled salmon (6 oz) + jasmine rice (1.25 cups) + edamame + avocado + sesame-ginger dressing","Sparkling water with lemon"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Protein shake in almond milk (1 scoop) + 4 oz tart cherry juice"]},
+  {name:"Dinner",time:"6–7 PM",items:["Cod with herb crust (5 oz) + sweet potato mash + green beans almondine","Peppermint tea"]}
+ ],smoothie:{name:"Mango Muscle Builder",i:["1 cup frozen mango","1 cup kale","1 cup coconut water","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp turmeric"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 13":{cal:"2,430",p:"125g",c:"270g",f:"68g",
+ note:"Day 49 — Phase 2 Week 3 begins. PT today sets up the heaviest week of Phase 2. Arrive ready.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole grain toast (2 slices) + smashed avocado + cherry tomatoes + everything bagel seasoning","Smoothie: spinach + mango + almond milk + protein powder"]},
+  {name:"Lunch",time:"12–1 PM",items:["Shrimp tacos (2): grilled shrimp + corn tortillas + slaw + avocado + lime crema (dairy-light) + cilantro","Agua fresca: watermelon + lime + mint"]},
+  {name:"Dinner",time:"6–7 PM",items:["Chicken stir fry: chicken breast strips + broccoli + snap peas + carrots + jasmine rice + oyster sauce + ginger","Cucumber water"]}
+ ],smoothie:{name:"Berry Rebuild",i:["1 cup frozen mixed berries","1 cup almond milk","1 scoop chocolate protein","½ cup oats","1 tbsp honey","½ tsp cinnamon"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 14":{cal:"2,540",p:"140g",c:"295g",f:"72g",
+ note:"Day 50 — Full body strength. Heaviest loads yet. 4 sets on everything. This is the heart of Phase 2.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Quinoa porridge: cooked quinoa + almond milk + cinnamon + walnuts + blueberries + agave","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Shrimp stir fry: jumbo shrimp (6 oz) + brown rice (1 cup) + snap peas + bell peppers + garlic-tamari sauce","Cucumber water"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Greek yogurt (dairy-light: coconut yogurt) + honey + walnuts + berries"]},
+  {name:"Dinner",time:"6–7 PM",items:["Scallop and asparagus: pan-seared scallops (5 oz) + roasted asparagus + wild rice + lemon butter (light dairy)","Sparkling water with lemon"]}
+ ],smoothie:{name:"Tropical Strength",i:["½ cup frozen mango","½ cup frozen papaya","1 cup spinach","1 cup coconut milk","1 scoop vanilla protein","1 tsp ginger"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 15":{cal:"2,410",p:"125g",c:"270g",f:"68g",
+ note:"Day 53 — Pre-peak PT. One more heavy lower body session this week — PT today is your sharpening stone.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Sweet potato hash: diced sweet potato + bell peppers + black beans + cumin, sautéed in olive oil","Fruit cup: watermelon + grapes + orange slices"]},
+  {name:"Lunch",time:"12–1 PM",items:["Baked cod + potato: herb-crusted cod (5 oz) + roasted baby potatoes + haricot verts + lemon","Lemon ginger water"]},
+  {name:"Dinner",time:"6–7 PM",items:["Turkey meatballs: turkey meatballs in tomato sauce + whole wheat spaghetti + side salad (mixed greens + vinaigrette)","Chamomile tea"]}
+ ],smoothie:{name:"Peach Power",i:["1 cup frozen peaches","1 cup almond milk","1 scoop vanilla protein","½ cup plain oats","1 tbsp honey","pinch of cardamom"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 16":{cal:"2,600",p:"140g",c:"295g",f:"72g",
+ note:"Day 54 — Core and arms peak Phase 2. 4 sets, 30 bicycles, 1-min planks. Abs are responding to the training.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Açaí bowl: açaí base + granola + mixed berries + mango chunks + coconut flakes + honey","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Mahi-mahi bowl: pan-seared mahi-mahi (5 oz) + coconut rice + mango salsa (no pineapple) + black beans","Green tea iced"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Protein shake + berry smoothie (mixed berries + coconut water + ice)"]},
+  {name:"Dinner",time:"6–7 PM",items:["Crab cakes (2 small): lump crab + breadcrumbs + old bay seasoning + baked, served with remoulade + corn + slaw","Hibiscus tea"]}
+ ],smoothie:{name:"Cherry Recovery",i:["1 cup frozen cherries","1 cup almond milk","1 scoop chocolate protein","4 oz tart cherry juice","1 tbsp almond butter (NO — use sunflower butter)","½ tsp cinnamon"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 17":{cal:"2,150",p:"118g",c:"245g",f:"64g",
+ note:"Day 34 — Phase 2 first rest day. New intensity means recovery matters more. Sleep, eat, hydrate.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole wheat pancakes (2) with mixed berry compote + maple syrup","Orange juice (fresh squeezed)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Shrimp + grits: sautéed shrimp + creamy grits (dairy-light: coconut milk based) + roasted tomatoes + scallions","Sparkling water with lime"]},
+  {name:"Dinner",time:"6–7 PM",items:["Salmon rice bowl: teriyaki glazed salmon (5 oz) + brown rice + edamame + shredded carrots + sesame-ginger sauce","Green tea (decaf)"]}
+ ],smoothie:{name:"Green Goddess Power",i:["2 cups spinach","½ cup frozen mango","1 green apple (cored)","1 cup coconut water","1 scoop vanilla protein","1 tbsp flaxseed"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 18":{cal:"2,430",p:"125g",c:"270g",f:"68g",
+ note:"Day 60 — Phase 2 complete. Final PT+yoga of this phase. Tell your PT what 60 days has built. Phase 3 unlocks tomorrow.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Oatmeal with sliced peaches + almonds + cinnamon + brown sugar + almond milk","Matcha latte"]},
+  {name:"Lunch",time:"12–1 PM",items:["Grilled chicken breast (5 oz) + wild rice (1 cup) + roasted vegetables (zucchini, squash, peppers) + olive oil","Anti-inflammatory golden milk: turmeric + almond milk + ginger + honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Chicken tikka (dairy-light): chicken breast in spiced tomato-coconut milk sauce + basmati rice + naan bread (1 piece)","Cardamom tea"]}
+ ],smoothie:{name:"Watermelon Recovery",i:["1.5 cups fresh watermelon","½ cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tbsp honey","fresh mint leaves"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 19":{cal:"2,540",p:"140g",c:"295g",f:"72g",
+ note:"Day 31 — Phase 2 begins. Rising phase. Higher volume, heavier loads. Your body is ready — Phase 1 built the foundation Phase 2 builds on.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Rice cake (2) + almond butter alternative (sunflower butter) + honey + sliced strawberries","Protein shake: vanilla protein + almond milk + ice"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken breast stir fry: sliced chicken (6 oz) + lo mein noodles + mixed veggies + teriyaki sauce","Water with mint"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Hummus (¼ cup) + cucumber slices + baby carrots + pita triangles (1)"]},
+  {name:"Dinner",time:"6–7 PM",items:["Shrimp fried rice: shrimp + fried rice (flax egg) + peas + carrots + scallions + sesame oil + soy sauce","Sparkling water"]}
+ ],smoothie:{name:"Pomegranate Power",i:["½ cup pomegranate juice","½ cup frozen blueberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp turmeric"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 20":{cal:"2,410",p:"125g",c:"270g",f:"68g",
+ note:"Day 35 — PT and yoga. Check in with how the supersets landed. Monday setup before Tuesday's leg power session.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Smoothie bowl: frozen mixed berries + spinach + protein powder + almond milk, topped with granola + kiwi + coconut","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey lettuce wraps: ground turkey + butter lettuce + shredded carrots + cucumbers + hoisin sauce + rice on side","Green tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Ground beef (lean 90/10) tacos (2): seasoned beef + corn tortillas + shredded lettuce + tomato + avocado + salsa","Agua fresca"]}
+ ],smoothie:{name:"Kiwi Strength",i:["2 kiwis (peeled)","1 cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tsp honey","½ tsp ginger"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 21":{cal:"2,600",p:"140g",c:"295g",f:"72g",
+ note:"Day 36 — Rising phase continues. Leg day with heavier hip thrusts. Progressive overload is the name of the game now.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Corn tortilla (2) + black bean spread + sautéed peppers + salsa + avocado slices","Mango smoothie: mango + almond milk + turmeric"]},
+  {name:"Lunch",time:"12–1 PM",items:["Crab fried rice: lump crab meat (4 oz) + fried rice (no egg — flax egg substitute) + peas + carrots + sesame oil + soy sauce","Hibiscus tea"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Edamame (1 cup, salted) + sparkling water with lime"]},
+  {name:"Dinner",time:"6–7 PM",items:["Baked mahi-mahi (5 oz) + garlic butter broccolini + jasmine rice + cherry tomato salad","Chamomile tea"]}
+ ],smoothie:{name:"Mango Turmeric Heal",i:["1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp turmeric","½ tsp ginger","1 tsp honey","black pepper pinch"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 22":{cal:"2,320",p:"125g",c:"270g",f:"68g",
+ note:"Day 39 — Post full-body recovery. PT today is essential for fibromyalgia management at elevated training volume.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Overnight oats: rolled oats + almond milk + mixed berries + honey + chia seeds","Green tea or matcha latte (oat milk)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken soup: homemade chicken broth + chunks of chicken breast + rice noodles + ginger + bok choy + green onions","Chamomile tea with honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Lemon herb salmon (6 oz) + roasted garlic potatoes + sautéed spinach with garlic and olive oil","Decaf chamomile tea"]}
+ ],smoothie:{name:"Mango Muscle Builder",i:["1 cup frozen mango","1 cup kale","1 cup coconut water","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp turmeric"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 23":{cal:"2,710",p:"150g",c:"315g",f:"75g",
+ note:"Day 61 — Phase 3 begins. Goddess Peak. Tempo training, drop sets, peak volume. Every rep intentional.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole grain toast (2 slices) + smashed avocado + cherry tomatoes + everything bagel seasoning","Smoothie: spinach + mango + almond milk + protein powder"]},
+  {name:"Lunch",time:"12–1 PM",items:["Ground turkey taco bowl: seasoned turkey + cilantro rice + black beans + pico de gallo + guacamole (corn tortillas on side)","Hibiscus iced tea"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Apple slices + sunflower seed butter (2 tbsp) + cinnamon"]},
+  {name:"Dinner",time:"6–7 PM",items:["Teriyaki chicken thighs (6 oz) + jasmine rice (1 cup) + steamed bok choy + sesame seeds","Ginger tea"]}
+ ],smoothie:{name:"Cherry Bomb Recovery",i:["1 cup frozen dark cherries","4 oz tart cherry juice","1 cup coconut water","1 scoop chocolate protein","1 tbsp flaxseed","½ tsp cinnamon"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 24":{cal:"2,310",p:"125g",c:"260g",f:"66g",
+ note:"Day 69 — Rest and reflect. Two-thirds of the 90-day journey complete. Compare your photos. The Goddess Body is emerging.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Quinoa porridge: cooked quinoa + almond milk + cinnamon + walnuts + blueberries + agave","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey chili (no bean version): ground turkey + diced tomatoes + bell pepper + corn + cumin + chili powder + served over rice","Hibiscus tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Shrimp pasta: jumbo shrimp + whole wheat linguine + roasted tomatoes + fresh basil + garlic + olive oil (light parmesan)","Sparkling water"]}
+ ],smoothie:{name:"Papaya Strength",i:["1 cup frozen papaya","½ cup frozen mango","1 cup coconut milk","1 scoop vanilla protein","1 tsp ginger","1 tsp turmeric","1 tbsp honey"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 25":{cal:"2,510",p:"132g",c:"285g",f:"70g",
+ note:"Day 67 — Pre-tempo full body PT. Tomorrow is the most controlled full body session yet. Arrive primed.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Sweet potato hash: diced sweet potato + bell peppers + black beans + cumin, sautéed in olive oil","Fruit cup: watermelon + grapes + orange slices"]},
+  {name:"Lunch",time:"12–1 PM",items:["Mahi-mahi tacos (2): grilled mahi + corn tortillas + mango-cucumber salsa + lime + shredded purple cabbage","Hibiscus iced tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Mahi-mahi (5 oz) with mango-avocado salsa + coconut rice + grilled zucchini","Chamomile tea"]}
+ ],smoothie:{name:"Dragon Fruit Power",i:["1 packet frozen dragon fruit","½ cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tbsp chia","½ lime juiced"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 26":{cal:"2,720",p:"150g",c:"315g",f:"75g",
+ note:"Day 68 — Full body tempo. Every movement controlled. This is elite training.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Açaí bowl: açaí base + granola + mixed berries + mango chunks + coconut flakes + honey","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Mahi-mahi bowl: pan-seared mahi-mahi (5 oz) + coconut rice + mango salsa (no pineapple) + black beans","Green tea iced"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Protein shake + berry smoothie (mixed berries + coconut water + ice)"]},
+  {name:"Dinner",time:"6–7 PM",items:["Ground turkey stuffed peppers: bell peppers filled with seasoned turkey + wild rice + diced tomatoes + herbs","Decaf green tea"]}
+ ],smoothie:{name:"Golden Goddess",i:["1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp turmeric","1 tsp ginger","1 tbsp honey","coconut flakes (garnish)"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 27":{cal:"2,420",p:"132g",c:"285g",f:"70g",
+ note:"Day 72 — Post-leg drop set PT. Drop sets create maximum fatigue — your PT helps you recover fast enough for Thursday.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole wheat pancakes (2) with mixed berry compote + maple syrup","Orange juice (fresh squeezed)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Salmon + quinoa: baked salmon (5 oz) + quinoa (1 cup) + steamed broccoli + lemon-dill dressing","Ginger tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Cod with herb crust (5 oz) + sweet potato mash + green beans almondine","Peppermint tea"]}
+ ],smoothie:{name:"Plum Power",i:["2 fresh plums (pitted)","1 cup frozen blueberries","1 cup almond milk","1 scoop chocolate protein","1 tbsp flaxseed","½ tsp cinnamon"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 28":{cal:"2,710",p:"150g",c:"315g",f:"75g",
+ note:"Day 73 — Glute isolation. Cable pull-throughs, single-leg hip thrusts. Pure glute work.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Oatmeal with sliced peaches + almonds + cinnamon + brown sugar + almond milk","Matcha latte"]},
+  {name:"Lunch",time:"12–1 PM",items:["Cod po boy: baked cod (5 oz) + whole wheat hoagie roll + shredded cabbage + remoulade + pickles + sweet potato fries","Lemonade"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Chocolate protein shake + 4 oz tart cherry juice"]},
+  {name:"Dinner",time:"6–7 PM",items:["Chicken stir fry: chicken breast strips + broccoli + snap peas + carrots + jasmine rice + oyster sauce + ginger","Cucumber water"]}
+ ],smoothie:{name:"Melon Recovery",i:["1.5 cups honeydew melon","½ cup cucumber","1 cup coconut water","1 scoop vanilla protein","fresh mint","1 tsp honey","lime juice"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 29":{cal:"2,480",p:"132g",c:"285g",f:"70g",
+ note:"Day 77 — Phase 3 final stretch begins. Your PT has watched you transform over 12 weeks. Let them see it today.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Rice cake (2) + almond butter alternative (sunflower butter) + honey + sliced strawberries","Protein shake: vanilla protein + almond milk + ice"]},
+  {name:"Lunch",time:"12–1 PM",items:["Shrimp tacos (2): grilled shrimp + corn tortillas + slaw + avocado + lime crema (dairy-light) + cilantro","Agua fresca: watermelon + lime + mint"]},
+  {name:"Dinner",time:"6–7 PM",items:["Scallop and asparagus: pan-seared scallops (5 oz) + roasted asparagus + wild rice + lemon butter (light dairy)","Sparkling water with lemon"]}
+ ],smoothie:{name:"Triple Berry Peak",i:["⅓ cup frozen strawberries","⅓ cup frozen blueberries","⅓ cup frozen raspberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia","1 tsp honey"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Aug 30":{cal:"2,690",p:"150g",c:"315g",f:"75g",
+ note:"Day 78 — Full body peak. Maximum volume across all muscle groups. The biggest training day of 90 days.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Smoothie bowl: frozen mixed berries + spinach + protein powder + almond milk, topped with granola + kiwi + coconut","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Scallop rice: pan-seared scallops (5 oz) + jasmine rice + roasted asparagus + lemon butter (dairy-light)","Cucumber mint water"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Vanilla protein shake + almond milk + handful of berries blended in"]},
+  {name:"Dinner",time:"6–7 PM",items:["Turkey meatballs: turkey meatballs in tomato sauce + whole wheat spaghetti + side salad (mixed greens + vinaigrette)","Chamomile tea"]}
+ ],smoothie:{name:"Pear Strength",i:["1 ripe pear (cored)","1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp ginger","1 tsp honey","½ tsp turmeric"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Aug 31":{cal:"2,370",p:"125g",c:"260g",f:"66g",
+ note:"Day 83 — Third-to-last rest day. 7 sessions remain. The finish line is real. Rest like it matters — it does.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Corn tortilla (2) + black bean spread + sautéed peppers + salsa + avocado slices","Mango smoothie: mango + almond milk + turmeric"]},
+  {name:"Lunch",time:"12–1 PM",items:["Salmon salad bowl: flaked baked salmon + mixed greens + cherry tomatoes + cucumber + avocado + lemon vinaigrette + farro","Anti-inflammatory golden milk"]},
+  {name:"Dinner",time:"6–7 PM",items:["Crab cakes (2 small): lump crab + breadcrumbs + old bay seasoning + baked, served with remoulade + corn + slaw","Hibiscus tea"]}
+ ],smoothie:{name:"Pomegranate Ascended",i:["½ cup pomegranate arils","½ cup frozen cherries","1 cup coconut water","1 scoop chocolate protein","4 oz tart cherry juice","1 tbsp flaxseed"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 1":{cal:"2,420",p:"132g",c:"285g",f:"70g",
+ note:"Day 84 — 84 days in. Final month PT. You are not the same person who started June 24.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Overnight oats: rolled oats + almond milk + mixed berries + honey + chia seeds","Green tea or matcha latte (oat milk)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Ground turkey bowl: seasoned turkey + brown rice + roasted sweet potato + black beans + avocado + salsa","Peppermint tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Salmon rice bowl: teriyaki glazed salmon (5 oz) + brown rice + edamame + shredded carrots + sesame-ginger sauce","Green tea (decaf)"]}
+ ],smoothie:{name:"Goddess Ascension",i:["1 cup frozen acai","½ cup frozen blueberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp honey","fresh mint"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 2":{cal:"2,710",p:"150g",c:"315g",f:"75g",
+ note:"Day 85 — Full body tempo final. You've been here 85 days. This session is you at your strongest.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole grain toast (2 slices) + smashed avocado + cherry tomatoes + everything bagel seasoning","Smoothie: spinach + mango + almond milk + protein powder"]},
+  {name:"Lunch",time:"12–1 PM",items:["Ground turkey taco bowl: seasoned turkey + cilantro rice + black beans + pico de gallo + guacamole (corn tortillas on side)","Hibiscus iced tea"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Apple slices + sunflower seed butter (2 tbsp) + cinnamon"]},
+  {name:"Dinner",time:"6–7 PM",items:["Chicken tikka (dairy-light): chicken breast in spiced tomato-coconut milk sauce + basmati rice + naan bread (1 piece)","Cardamom tea"]}
+ ],smoothie:{name:"Cherry Bomb Recovery",i:["1 cup frozen dark cherries","4 oz tart cherry juice","1 cup coconut water","1 scoop chocolate protein","1 tbsp flaxseed","½ tsp cinnamon"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 3":{cal:"2,480",p:"132g",c:"285g",f:"70g",
+ note:"Day 88 — Pre-Goddess Ascended PT. The finale is tomorrow. One last PT session to prepare your body to finish at full power.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Quinoa porridge: cooked quinoa + almond milk + cinnamon + walnuts + blueberries + agave","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Grilled chicken breast (5 oz) + wild rice (1 cup) + roasted vegetables (zucchini, squash, peppers) + olive oil","Anti-inflammatory golden milk: turmeric + almond milk + ginger + honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Shrimp fried rice: shrimp + fried rice (flax egg) + peas + carrots + scallions + sesame oil + soy sauce","Sparkling water"]}
+ ],smoothie:{name:"Papaya Strength",i:["1 cup frozen papaya","½ cup frozen mango","1 cup coconut milk","1 scoop vanilla protein","1 tsp ginger","1 tsp turmeric","1 tbsp honey"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 4":{cal:"2,690",p:"150g",c:"315g",f:"75g",
+ note:"Day 89 — Day 89. Goddess Ascended workout. Everything you've built comes forward for one final session.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Sweet potato hash: diced sweet potato + bell peppers + black beans + cumin, sautéed in olive oil","Fruit cup: watermelon + grapes + orange slices"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken thigh + sweet potato: baked chicken thigh (6 oz) + roasted sweet potato + sautéed broccolini + lemon herb sauce","Sparkling water"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Rice cakes (2) + avocado mash + sea salt + red pepper flakes"]},
+  {name:"Dinner",time:"6–7 PM",items:["Ground beef (lean 90/10) tacos (2): seasoned beef + corn tortillas + shredded lettuce + tomato + avocado + salsa","Agua fresca"]}
+ ],smoothie:{name:"Dragon Fruit Power",i:["1 packet frozen dragon fruit","½ cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tbsp chia","½ lime juiced"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 5":{cal:"2,540",p:"132g",c:"285g",f:"70g",
+ note:"Day 65 — Post-tempo leg PT. Eccentric training creates more soreness — PT today is essential.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Açaí bowl: açaí base + granola + mixed berries + mango chunks + coconut flakes + honey","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey lettuce wraps: ground turkey + butter lettuce + shredded carrots + cucumbers + hoisin sauce + rice on side","Green tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Baked mahi-mahi (5 oz) + garlic butter broccolini + jasmine rice + cherry tomato salad","Chamomile tea"]}
+ ],smoothie:{name:"Golden Goddess",i:["1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp turmeric","1 tsp ginger","1 tbsp honey","coconut flakes (garnish)"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 6":{cal:"2,600",p:"150g",c:"315g",f:"75g",
+ note:"Day 64 — Phase 3 first full leg day. Tempo squats 3-1-3 count. Slow = more muscle activation.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole wheat pancakes (2) with mixed berry compote + maple syrup","Orange juice (fresh squeezed)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey meatball pasta: whole wheat spaghetti (1.5 cups) + lean turkey meatballs + marinara + parmesan (light)","Water with lemon"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Mixed nuts (almonds, cashews, walnuts) + dark chocolate (1 oz, 70%+)"]},
+  {name:"Dinner",time:"6–7 PM",items:["Lemon herb salmon (6 oz) + roasted garlic potatoes + sautéed spinach with garlic and olive oil","Decaf chamomile tea"]}
+ ],smoothie:{name:"Plum Power",i:["2 fresh plums (pitted)","1 cup frozen blueberries","1 cup almond milk","1 scoop chocolate protein","1 tbsp flaxseed","½ tsp cinnamon"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 7":{cal:"2,360",p:"125g",c:"260g",f:"66g",
+ note:"Day 62 — Phase 3 first rest day. Tempo training creates deep muscle fatigue. Today the real growth happens.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Oatmeal with sliced peaches + almonds + cinnamon + brown sugar + almond milk","Matcha latte"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken and rice (comforting): slow-cooked chicken breast (5 oz) + white rice (1 cup) + green peas + butter (light) + parsley","Chamomile tea + honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Teriyaki chicken thighs (6 oz) + jasmine rice (1 cup) + steamed bok choy + sesame seeds","Ginger tea"]}
+ ],smoothie:{name:"Melon Recovery",i:["1.5 cups honeydew melon","½ cup cucumber","1 cup coconut water","1 scoop vanilla protein","fresh mint","1 tsp honey","lime juice"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 8":{cal:"2,480",p:"132g",c:"285g",f:"70g",
+ note:"Day 72 — Post-leg drop set PT. Drop sets create maximum fatigue — your PT helps you recover fast enough for Thursday.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Rice cake (2) + almond butter alternative (sunflower butter) + honey + sliced strawberries","Protein shake: vanilla protein + almond milk + ice"]},
+  {name:"Lunch",time:"12–1 PM",items:["Baked cod + potato: herb-crusted cod (5 oz) + roasted baby potatoes + haricot verts + lemon","Lemon ginger water"]},
+  {name:"Dinner",time:"6–7 PM",items:["Shrimp pasta: jumbo shrimp + whole wheat linguine + roasted tomatoes + fresh basil + garlic + olive oil (light parmesan)","Sparkling water"]}
+ ],smoothie:{name:"Triple Berry Peak",i:["⅓ cup frozen strawberries","⅓ cup frozen blueberries","⅓ cup frozen raspberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia","1 tsp honey"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 9":{cal:"2,690",p:"150g",c:"315g",f:"75g",
+ note:"Day 71 — Lower body drop sets debut. Your muscles get shocked — then grow. High calorie day.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Smoothie bowl: frozen mixed berries + spinach + protein powder + almond milk, topped with granola + kiwi + coconut","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Scallop rice: pan-seared scallops (5 oz) + jasmine rice + roasted asparagus + lemon butter (dairy-light)","Cucumber mint water"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Vanilla protein shake + almond milk + handful of berries blended in"]},
+  {name:"Dinner",time:"6–7 PM",items:["Mahi-mahi (5 oz) with mango-avocado salsa + coconut rice + grilled zucchini","Chamomile tea"]}
+ ],smoothie:{name:"Pear Strength",i:["1 ripe pear (cored)","1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp ginger","1 tsp honey","½ tsp turmeric"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 10":{cal:"2,540",p:"132g",c:"285g",f:"70g",
+ note:"Day 77 — Phase 3 final stretch begins. Your PT has watched you transform over 12 weeks. Let them see it today.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Corn tortilla (2) + black bean spread + sautéed peppers + salsa + avocado slices","Mango smoothie: mango + almond milk + turmeric"]},
+  {name:"Lunch",time:"12–1 PM",items:["Mahi-mahi tacos (2): grilled mahi + corn tortillas + mango-cucumber salsa + lime + shredded purple cabbage","Hibiscus iced tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Ground turkey stuffed peppers: bell peppers filled with seasoned turkey + wild rice + diced tomatoes + herbs","Decaf green tea"]}
+ ],smoothie:{name:"Pomegranate Ascended",i:["½ cup pomegranate arils","½ cup frozen cherries","1 cup coconut water","1 scoop chocolate protein","4 oz tart cherry juice","1 tbsp flaxseed"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 11":{cal:"2,600",p:"150g",c:"315g",f:"75g",
+ note:"Day 75 — Core and arms giant set. 4 exercises, no rest between them. Advanced protocol.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Overnight oats: rolled oats + almond milk + mixed berries + honey + chia seeds","Green tea or matcha latte (oat milk)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Salmon rice bowl: grilled salmon (6 oz) + jasmine rice (1.25 cups) + edamame + avocado + sesame-ginger dressing","Sparkling water with lemon"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Protein shake in almond milk (1 scoop) + 4 oz tart cherry juice"]},
+  {name:"Dinner",time:"6–7 PM",items:["Cod with herb crust (5 oz) + sweet potato mash + green beans almondine","Peppermint tea"]}
+ ],smoothie:{name:"Goddess Ascension",i:["1 cup frozen acai","½ cup frozen blueberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp honey","fresh mint"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 12":{cal:"2,530",p:"132g",c:"285g",f:"70g",
+ note:"Day 81 — Post-lower-body-peak PT. You just moved the heaviest weights of your life. Honor the recovery.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole grain toast (2 slices) + smashed avocado + cherry tomatoes + everything bagel seasoning","Smoothie: spinach + mango + almond milk + protein powder"]},
+  {name:"Lunch",time:"12–1 PM",items:["Salmon + quinoa: baked salmon (5 oz) + quinoa (1 cup) + steamed broccoli + lemon-dill dressing","Ginger tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Chicken stir fry: chicken breast strips + broccoli + snap peas + carrots + jasmine rice + oyster sauce + ginger","Cucumber water"]}
+ ],smoothie:{name:"Cherry Bomb Recovery",i:["1 cup frozen dark cherries","4 oz tart cherry juice","1 cup coconut water","1 scoop chocolate protein","1 tbsp flaxseed","½ tsp cinnamon"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 13":{cal:"2,660",p:"150g",c:"315g",f:"75g",
+ note:"Day 80 — Lower body peak Phase 3. Heaviest loads of the entire journey. Personal records today.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Quinoa porridge: cooked quinoa + almond milk + cinnamon + walnuts + blueberries + agave","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Shrimp stir fry: jumbo shrimp (6 oz) + brown rice (1 cup) + snap peas + bell peppers + garlic-tamari sauce","Cucumber water"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["Post-Workout: Greek yogurt (dairy-light: coconut yogurt) + honey + walnuts + berries"]},
+  {name:"Dinner",time:"6–7 PM",items:["Scallop and asparagus: pan-seared scallops (5 oz) + roasted asparagus + wild rice + lemon butter (light dairy)","Sparkling water with lemon"]}
+ ],smoothie:{name:"Papaya Strength",i:["1 cup frozen papaya","½ cup frozen mango","1 cup coconut milk","1 scoop vanilla protein","1 tsp ginger","1 tsp turmeric","1 tbsp honey"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 14":{cal:"2,340",p:"125g",c:"260g",f:"66g",
+ note:"Day 76 — 76 days. Phase 3 week 3 rest. You are 2 weeks from finishing something most people never start.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Sweet potato hash: diced sweet potato + bell peppers + black beans + cumin, sautéed in olive oil","Fruit cup: watermelon + grapes + orange slices"]},
+  {name:"Lunch",time:"12–1 PM",items:["Shrimp + grits: sautéed shrimp + creamy grits (dairy-light: coconut milk based) + roasted tomatoes + scallions","Sparkling water with lime"]},
+  {name:"Dinner",time:"6–7 PM",items:["Turkey meatballs: turkey meatballs in tomato sauce + whole wheat spaghetti + side salad (mixed greens + vinaigrette)","Chamomile tea"]}
+ ],smoothie:{name:"Dragon Fruit Power",i:["1 packet frozen dragon fruit","½ cup frozen strawberries","1 cup coconut water","1 scoop vanilla protein","1 tbsp chia","½ lime juiced"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 15":{cal:"2,540",p:"132g",c:"285g",f:"70g",
+ note:"Day 88 — Pre-Goddess Ascended PT. The finale is tomorrow. One last PT session to prepare your body to finish at full power.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Açaí bowl: açaí base + granola + mixed berries + mango chunks + coconut flakes + honey","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken soup: homemade chicken broth + chunks of chicken breast + rice noodles + ginger + bok choy + green onions","Chamomile tea with honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Crab cakes (2 small): lump crab + breadcrumbs + old bay seasoning + baked, served with remoulade + corn + slaw","Hibiscus tea"]}
+ ],smoothie:{name:"Golden Goddess",i:["1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp turmeric","1 tsp ginger","1 tbsp honey","coconut flakes (garnish)"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 16":{cal:"2,600",p:"150g",c:"315g",f:"75g",
+ note:"Day 87 — Lower body Phase 3 celebration. Final leg day. Hit your numbers.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Whole wheat pancakes (2) with mixed berry compote + maple syrup","Orange juice (fresh squeezed)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey meatball pasta: whole wheat spaghetti (1.5 cups) + lean turkey meatballs + marinara + parmesan (light)","Water with lemon"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Mixed nuts (almonds, cashews, walnuts) + dark chocolate (1 oz, 70%+)"]},
+  {name:"Dinner",time:"6–7 PM",items:["Salmon rice bowl: teriyaki glazed salmon (5 oz) + brown rice + edamame + shredded carrots + sesame-ginger sauce","Green tea (decaf)"]}
+ ],smoothie:{name:"Plum Power",i:["2 fresh plums (pitted)","1 cup frozen blueberries","1 cup almond milk","1 scoop chocolate protein","1 tbsp flaxseed","½ tsp cinnamon"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 17":{cal:"2,530",p:"132g",c:"285g",f:"70g",
+ note:"Day 65 — Post-tempo leg PT. Eccentric training creates more soreness — PT today is essential.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Oatmeal with sliced peaches + almonds + cinnamon + brown sugar + almond milk","Matcha latte"]},
+  {name:"Lunch",time:"12–1 PM",items:["Ground turkey bowl: seasoned turkey + brown rice + roasted sweet potato + black beans + avocado + salsa","Peppermint tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Chicken tikka (dairy-light): chicken breast in spiced tomato-coconut milk sauce + basmati rice + naan bread (1 piece)","Cardamom tea"]}
+ ],smoothie:{name:"Melon Recovery",i:["1.5 cups honeydew melon","½ cup cucumber","1 cup coconut water","1 scoop vanilla protein","fresh mint","1 tsp honey","lime juice"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 18":{cal:"2,660",p:"150g",c:"315g",f:"75g",
+ note:"Day 61 — Phase 3 begins. Goddess Peak. Tempo training, drop sets, peak volume. Every rep intentional.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Rice cake (2) + almond butter alternative (sunflower butter) + honey + sliced strawberries","Protein shake: vanilla protein + almond milk + ice"]},
+  {name:"Lunch",time:"12–1 PM",items:["Chicken breast stir fry: sliced chicken (6 oz) + lo mein noodles + mixed veggies + teriyaki sauce","Water with mint"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Hummus (¼ cup) + cucumber slices + baby carrots + pita triangles (1)"]},
+  {name:"Dinner",time:"6–7 PM",items:["Shrimp fried rice: shrimp + fried rice (flax egg) + peas + carrots + scallions + sesame oil + soy sauce","Sparkling water"]}
+ ],smoothie:{name:"Triple Berry Peak",i:["⅓ cup frozen strawberries","⅓ cup frozen blueberries","⅓ cup frozen raspberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia","1 tsp honey"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 19":{cal:"2,510",p:"132g",c:"285g",f:"70g",
+ note:"Day 70 — Phase 3 Week 2 PT. 20 sessions in this phase completed. The consistency is your superpower.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Smoothie bowl: frozen mixed berries + spinach + protein powder + almond milk, topped with granola + kiwi + coconut","Green tea"]},
+  {name:"Lunch",time:"12–1 PM",items:["Grilled chicken breast (5 oz) + wild rice (1 cup) + roasted vegetables (zucchini, squash, peppers) + olive oil","Anti-inflammatory golden milk: turmeric + almond milk + ginger + honey"]},
+  {name:"Dinner",time:"6–7 PM",items:["Ground beef (lean 90/10) tacos (2): seasoned beef + corn tortillas + shredded lettuce + tomato + avocado + salsa","Agua fresca"]}
+ ],smoothie:{name:"Pear Strength",i:["1 ripe pear (cored)","1 cup frozen mango","1 cup almond milk","1 scoop vanilla protein","1 tsp ginger","1 tsp honey","½ tsp turmeric"]},
+ tea:"🍵 AM: Ginger lemon tea (anti-inflammatory + digestion)  ·  PM: Chamomile with honey (parasympathetic recovery, sleep prep)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"},
+"Sep 20":{cal:"2,720",p:"150g",c:"315g",f:"75g",
+ note:"Day 66 — Core sculpt day. Ab wheel rollouts, hollow holds, L-sits. The deepest core work of the 90 days.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Corn tortilla (2) + black bean spread + sautéed peppers + salsa + avocado slices","Mango smoothie: mango + almond milk + turmeric"]},
+  {name:"Lunch",time:"12–1 PM",items:["Crab fried rice: lump crab meat (4 oz) + fried rice (no egg — flax egg substitute) + peas + carrots + sesame oil + soy sauce","Hibiscus tea"]},
+  {name:"Post-Workout",time:"Within 30 min",items:["PM Snack: Edamame (1 cup, salted) + sparkling water with lime"]},
+  {name:"Dinner",time:"6–7 PM",items:["Baked mahi-mahi (5 oz) + garlic butter broccolini + jasmine rice + cherry tomato salad","Chamomile tea"]}
+ ],smoothie:{name:"Pomegranate Ascended",i:["½ cup pomegranate arils","½ cup frozen cherries","1 cup coconut water","1 scoop chocolate protein","4 oz tart cherry juice","1 tbsp flaxseed"]},
+ tea:"🍵 AM: Matcha (focus + sustained energy for training)  ·  PM: Tart cherry tea (4 oz tart cherry juice + warm water — accelerates muscle recovery)",
+ soup:null},
+"Sep 21":{cal:"2,250",p:"125g",c:"260g",f:"66g",
+ note:"Day 90 — 90 DAYS. DONE. Take your final progress photos. Compare Day 1 to Day 90. The Goddess showed up, every single day.",
+ meals:[
+  {name:"Breakfast",time:"7–8 AM",items:["Overnight oats: rolled oats + almond milk + mixed berries + honey + chia seeds","Green tea or matcha latte (oat milk)"]},
+  {name:"Lunch",time:"12–1 PM",items:["Turkey chili (no bean version): ground turkey + diced tomatoes + bell pepper + corn + cumin + chili powder + served over rice","Hibiscus tea"]},
+  {name:"Dinner",time:"6–7 PM",items:["Lemon herb salmon (6 oz) + roasted garlic potatoes + sautéed spinach with garlic and olive oil","Decaf chamomile tea"]}
+ ],smoothie:{name:"Goddess Ascension",i:["1 cup frozen acai","½ cup frozen blueberries","1 cup almond milk","1 scoop vanilla protein","1 tbsp chia seeds","1 tsp honey","fresh mint"]},
+ tea:"🍵 AM: Turmeric golden milk (inflammation control)  ·  PM: Lavender chamomile (deep rest, muscle repair + fibromyalgia support)",
+ soup:"Turmeric ginger bone broth (1 cup) — anti-inflammatory powerhouse for fibromyalgia management"}
 };
+;
 
 const MEAL_COLORS = ["#c9a84c","#7a9b76","#e8849a","#b06ac8","#74b3ce"];
 
@@ -1323,9 +2728,21 @@ export default function GoddessBody() {
   };
 
   const isLocked = (idx) => {
-    if (!startDate || idx === 0) return false;
+    if (!startDate) return idx > 0;
+    if (idx === 0) return false;
+    // Phase gates: Phase 2 (idx>=30) unlocks after 30 days in, Phase 3 (idx>=60) after 60
+    if (idx >= 60 && daysIn < 60) return true;
+    if (idx >= 30 && idx < 60 && daysIn < 30) return true;
     const prev = allDays[idx - 1];
     return !completions[prev?.date];
+  };
+
+  const phaseOf = (idx) => idx < 30 ? 1 : idx < 60 ? 2 : 3;
+  const phaseUnlocked = (ph) => {
+    if (ph === 1) return !!startDate;
+    if (ph === 2) return startDate && daysIn >= 30;
+    if (ph === 3) return startDate && daysIn >= 60;
+    return false;
   };
 
   const handleLockedClick = (prevDate) => {
@@ -1363,8 +2780,8 @@ export default function GoddessBody() {
   };
 
   const _diff = startDate ? (() => { const n=new Date(); n.setHours(0,0,0,0); return Math.round((n-startDate)/86400000); })() : -999;
-  const todayIdx = (_diff >= 0 && _diff <= 29) ? _diff : -1;
-  const daysIn   = Math.max(0, Math.min(30, startDate ? _diff + 1 : 0));
+  const todayIdx = (_diff >= 0 && _diff <= 89) ? _diff : -1;
+  const daysIn   = Math.max(0, Math.min(90, startDate ? _diff + 1 : 0));
 
   /* ── Nutrition computed ── */
   const _activeDate = nutDate ?? selDay?.date ?? null;
@@ -1509,21 +2926,21 @@ export default function GoddessBody() {
                 <span style={{fontSize:20}}>✅</span>
                 <div>
                   <p style={{fontSize:12,fontWeight:600,color:SAGE,marginBottom:2}}>
-                    Goddess Body Active · Day {Math.min(daysIn,30)} of 30
+                    Goddess Body Active · Day {Math.min(daysIn,90)} of 90
                     {todayIdx>=0&&<span style={{marginLeft:8,fontSize:10,color:GOLD,background:"rgba(201,168,76,0.12)",padding:"1px 8px",borderRadius:6}}>Today: Day {todayIdx+1}</span>}
                   </p>
                   <p style={{fontSize:11,color:"#7a5a8a"}}>
                     Started {startDate.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}
                     {daysIn>0&&daysIn<=30&&` · ${daysIn} day${daysIn===1?'':'s'} in`}
-                    {daysIn>30&&' · 30 days complete 👑'}
+                    {daysIn>=90&&' · 90 days complete 👑'}
                   </p>
                 </div>
               </div>
               <div style={{display:"flex",alignItems:"center",gap:12}}>
                 <div style={{width:90,height:6,background:"rgba(255,255,255,0.08)",borderRadius:4,overflow:"hidden"}}>
-                  <div style={{height:"100%",width:`${Math.min(100,(daysIn/30)*100)}%`,background:daysIn>=30?`linear-gradient(90deg,${GOLD},${PINK})`:`linear-gradient(90deg,${PLUM},${PINK})`,borderRadius:4}}/>
+                  <div style={{height:"100%",width:`${Math.min(100,(daysIn/90)*100)}%`,background:daysIn>=90?`linear-gradient(90deg,${GOLD},${PINK})`:`linear-gradient(90deg,${PLUM},${PINK})`,borderRadius:4}}/>
                 </div>
-                {daysIn>=30
+                {daysIn>=90
                   ? <span style={{fontSize:11,color:GOLD,fontWeight:600}}>👑 Complete!</span>
                   : <button onClick={handleReset} style={{background:"none",border:"1px solid #3a1a4a",borderRadius:8,color:"#5a3a6a",fontSize:11,padding:"5px 12px",cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>Reset</button>}
               </div>
@@ -2033,7 +3450,5 @@ export default function GoddessBody() {
 
       </div>
     </div>
-    )}
-    </>
   );
 }
