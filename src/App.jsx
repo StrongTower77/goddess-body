@@ -2,24 +2,56 @@ import { useState } from "react";
 
 /* ── Global CSS — fonts loaded via index.html ── */
 const STYLE_TAG = `
+  /* ── Reset & Base ── */
+  html,body{margin:0!important;padding:0!important;background:#0a0312!important;width:100%;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
   *{box-sizing:border-box;margin:0;padding:0;}
   ::-webkit-scrollbar{width:4px;}
   ::-webkit-scrollbar-track{background:#0a0410;}
   ::-webkit-scrollbar-thumb{background:#5a2a70;border-radius:2px;}
+
+  /* ── Mobile tap highlight removal ── */
+  button,a,[role=button]{-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+
+  /* ── Day cards ── */
   .day-card{transition:transform 0.15s,box-shadow 0.15s;cursor:pointer;}
-  .day-card:hover{transform:translateY(-2px);}
+  @media(hover:hover){.day-card:hover{transform:translateY(-2px);}}
   .week-hdr{transition:background 0.2s;cursor:pointer;}
-  .week-hdr:hover{background:#1e0828!important;}
+  @media(hover:hover){.week-hdr:hover{background:#1e0828!important;}}
   .toggle-pill{transition:all 0.25s;}
   .flare-btn{transition:all 0.2s;}
   .flare-btn:hover{opacity:0.85!important;}
+
+  /* ── Vision board photos ── */
   .ref-photo{transition:transform 0.35s cubic-bezier(.25,.8,.25,1),box-shadow 0.35s,filter 0.35s;cursor:pointer;filter:brightness(0.88) saturate(0.95);}
-  .ref-photo:hover{transform:scale(1.04);filter:brightness(1.06) saturate(1.1);box-shadow:0 8px 32px rgba(201,168,76,0.35);}
+  @media(hover:hover){.ref-photo:hover{transform:scale(1.04);filter:brightness(1.06) saturate(1.1);box-shadow:0 8px 32px rgba(201,168,76,0.35);}}
+  .ref-photo:active{transform:scale(0.97);filter:brightness(1.1);}
+
+  /* ── Lightbox ── */
   @keyframes fadeInScale{from{opacity:0;transform:scale(0.82)}to{opacity:1;transform:scale(1)}}
-  @keyframes fadeOutScale{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(0.88)}}
   @keyframes lightboxBg{from{opacity:0}to{opacity:1}}
   .lightbox-overlay{animation:lightboxBg 0.3s ease forwards;}
   .lightbox-img{animation:fadeInScale 0.4s cubic-bezier(.25,.8,.25,1) forwards;}
+
+  /* ── Desktop layout ── */
+  @media(min-width:768px){
+    .app-inner{max-width:720px;margin:0 auto;}
+    .tab-bar{max-width:720px;margin:0 auto;}
+    .day-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(139,47,168,0.25);}
+  }
+  @media(min-width:1024px){
+    .app-inner{max-width:800px;}
+    .tab-bar{max-width:800px;}
+  }
+
+  /* ── Mobile touch optimization ── */
+  @media(max-width:480px){
+    .week-hdr{padding:14px 16px!important;}
+    .day-card{padding:12px!important;}
+  }
+
+  /* ── Input & button focus styles ── */
+  input:focus{outline:none!important;}
+  button:focus-visible{outline:2px solid #c9a84c;outline-offset:2px;}
 `;
 
 /* ── Type styles: Deep Plum · Sage Green · Pink · Gold ── */
@@ -2811,7 +2843,7 @@ export default function GoddessBody() {
   const GOLD   = "#C9A84C";
 
   if (!isAuth) return (
-    <div style={{minHeight:"100vh",background:"#0a0312",display:"flex",alignItems:"center",justifyContent:"center",padding:"24px",fontFamily:"'Jost',sans-serif"}}>
+    <div style={{minHeight:"100vh",width:"100%",background:"#0a0312",display:"flex",alignItems:"center",justifyContent:"center",padding:"24px",fontFamily:"'Jost',sans-serif",overflowX:"hidden"}}>
       <style>{`@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}`}</style>
       <div style={{width:"100%",maxWidth:380,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <img src="/logo.png" alt="Goddess Body" style={{width:90,height:90,borderRadius:18,objectFit:"cover",marginBottom:24,boxShadow:"0 8px 32px rgba(139,47,168,0.4)"}}/>
@@ -2857,7 +2889,7 @@ export default function GoddessBody() {
   );
 
   return (
-    <div style={{background:"#0a0312",minHeight:"100vh",fontFamily:"'Jost',sans-serif",color:"#e2ddd3"}}>
+    <div style={{background:"#0a0312",minHeight:"100vh",width:"100%",fontFamily:"'Jost',sans-serif",color:"#e2ddd3",overflowX:"hidden"}}>
       <style>{STYLE_TAG}</style>
 
       {/* ── HERO ── */}
