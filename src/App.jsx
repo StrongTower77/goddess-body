@@ -2724,15 +2724,19 @@ export default function GoddessBody() {
       setAuthInput("");
     }
   };
-  const [gymMode,   setGymMode]   = useState(true);
+  const [gymMode,   setGymMode]   = useState(() => { try { const s = localStorage.getItem('gb-gym-mode'); return s === null ? true : s === 'true'; } catch { return true; } });
   const [selDay,    setSelDay]    = useState(null);
   const [openWeek,  setOpenWeek]  = useState(1);
   const [nutDate,   setNutDate]   = useState(null);
-  const [flareMode, setFlareMode] = useState({});
+  const [flareMode, setFlareMode] = useState(() => { try { const s = localStorage.getItem('gb-flare-mode'); return s ? JSON.parse(s) : {}; } catch { return {}; } });
 
   const toggleFlare = (date, e) => {
     e.stopPropagation();
-    setFlareMode(prev => ({...prev, [date]: !prev[date]}));
+    setFlareMode(prev => {
+      const updated = {...prev, [date]: !prev[date]};
+      try { localStorage.setItem('gb-flare-mode', JSON.stringify(updated)); } catch {}
+      return updated;
+    });
   };
 
   /* ── Start date (localStorage) ── */
@@ -2763,7 +2767,9 @@ export default function GoddessBody() {
 
   const markDay = (date, status, e) => {
     e.stopPropagation();
-    const updated = { ...completions, [date]: status };
+    const updated = { ...completions };
+    if (status === undefined) { delete updated[date]; }
+    else { updated[date] = status; }
     setCompletions(updated);
     try { localStorage.setItem('gb-completions', JSON.stringify(updated)); } catch {}
   };
@@ -3020,7 +3026,7 @@ export default function GoddessBody() {
           {/* Gym / Home Toggle */}
           <div style={{display:"flex",alignItems:"center",gap:8}}>
             <span style={{fontSize:10,color:"#5a3a6a",letterSpacing:1,textTransform:"uppercase"}}>Mode</span>
-            <button onClick={()=>{setGymMode(!gymMode);setSelDay(null);}}
+            <button onClick={()=>{ const next=!gymMode; try{localStorage.setItem('gb-gym-mode',String(next));}catch{} setGymMode(next);setSelDay(null);}}
               style={{display:"flex",alignItems:"center",background:"#120618",border:"1px solid #3a1a4a",
                 borderRadius:20,padding:"3px",cursor:"pointer",position:"relative",width:88,height:30}}>
               <div className="toggle-pill" style={{position:"absolute",top:3,left:gymMode?3:45,width:40,height:22,borderRadius:16,
