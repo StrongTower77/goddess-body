@@ -2083,7 +2083,7 @@ const DN = {
   {name:"Dinner",time:"6–7 PM",items:["Celebration dinner: Grilled shrimp (6 oz) with garlic and herbs","Jasmine rice (1 cup)","Roasted asparagus + lemon","Fresh fruit dessert: berries, mango, honey drizzle"]},
  ],smoothie:{name:"30-Day Goddess Victory Smoothie",i:["1 cup frozen mango","½ cup frozen berries","1 cup spinach","1 cup almond milk","1.5 scoops vanilla protein","1 tsp honey","½ tsp turmeric","Few mint leaves"]},
  tea:"🍵 AM: Matcha latte (final session — your most powerful)  ·  PM: Hibiscus tea (celebrate with the most vibrant tea of the program — you are a Goddess)",
- soup:null},,
+ soup:null},
 "Jul 24":{cal:"2,590",p:"140g",c:"295g",f:"72g",
  note:"Day 31 — Phase 2 begins. Rising phase. Higher volume, heavier loads. Your body is ready — Phase 1 built the foundation Phase 2 builds on.",
  meals:[
