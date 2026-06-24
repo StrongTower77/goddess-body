@@ -1443,7 +1443,7 @@ export default function GoddessBody() {
                 </p>
               </div>
               <button onClick={handleStart} style={{background:`linear-gradient(135deg,${GOLD},#a8883a)`,border:"none",borderRadius:10,padding:"11px 22px",cursor:"pointer",fontFamily:"'Jost',sans-serif",fontWeight:600,fontSize:13,color:"#0a0312",letterSpacing:0.5,flexShrink:0,boxShadow:"0 4px 14px rgba(201,168,76,0.3)",whiteSpace:"nowrap"}}>
-                👑 Begin Goddess Body
+                👑 Begin Building Goddess Body
               </button>
             </div>
           ) : (
@@ -1881,7 +1881,7 @@ export default function GoddessBody() {
             <div style={{background:"linear-gradient(135deg,#1a0824,#0f0418)",border:"1px solid "+GOLD,borderRadius:14,padding:20,marginBottom:16}}>
               <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:17,color:GOLD,marginBottom:14,letterSpacing:0.5}}>✨ How to Use Your Plan</h3>
               {[
-                {icon:"👑",label:"Start Your Plan",desc:"Scroll to the top and tap Begin Goddess Body. This sets today as Day 1 and all 30 dates update automatically. Your progress bar tracks each day as it passes."},
+                {icon:"👑",label:"Start Your Plan",desc:"Scroll to the top and tap Begin Building Goddess Body. This sets today as Day 1 and all 30 dates update automatically. Your progress bar tracks each day as it passes."},
                 {icon:"🌸",label:"Flare Day Button",desc:"On every workout day (Tue/Thu/Sat), open the day card and look for the pink 🌸 FLARE DAY button. If you're in a fibromyalgia flare, tap it — the workout instantly swaps to a gentle, low-impact protocol. Tap again to go back to the full workout."},
                 {icon:"🏋🏾",label:"Gym / Home Toggle",desc:"See the MODE switch at the top right of the Plan tab. Toggle between GYM and HOME to switch all exercise instructions to match where you're training that day."},
                 {icon:"📅",label:"Day Cards",desc:"Tap any day in the calendar to expand it. Workout days show your exercises, yoga warm-up, cardio, and coach tip. PT + Yoga days show your session flow. REST days show your recovery protocol."},
