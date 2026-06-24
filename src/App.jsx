@@ -2806,7 +2806,7 @@ export default function GoddessBody() {
       <style>{`@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}`}</style>
       <div style={{width:"100%",maxWidth:380,display:"flex",flexDirection:"column",alignItems:"center"}}>
         <img src="/logo.png" alt="Goddess Body" style={{width:90,height:90,borderRadius:18,objectFit:"cover",marginBottom:24,boxShadow:"0 8px 32px rgba(139,47,168,0.4)"}}/>
-        <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,letterSpacing:6,color:GOLD,textTransform:"uppercase",marginBottom:8}}>Martyy B Media · M.J. Colbert</p>
+        <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,letterSpacing:6,color:GOLD,textTransform:"uppercase",marginBottom:8}}>Made for Coco Love · M.J. Colbert</p>
         <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:600,color:"#f0ebe0",marginBottom:4,textAlign:"center",lineHeight:1.1}}>Goddess Body</h1>
         <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontStyle:"italic",color:PINK,marginBottom:36}}>Fitness Plan</p>
         <div style={{width:"100%",animation:authShake?"shake 0.5s ease":"none"}}>
@@ -2828,6 +2828,9 @@ export default function GoddessBody() {
         </button>
         <p style={{fontSize:10,color:"#3a1a4a",marginTop:24,letterSpacing:1,textTransform:"uppercase",textAlign:"center"}}>
           Private · Custom Plan · Coco Love The Goddess
+        </p>
+        <p style={{fontSize:9,color:"#2a0a3a",marginTop:12,letterSpacing:1,textTransform:"uppercase",textAlign:"center"}}>
+          Created by Martyy B Media
         </p>
       </div>
     </div>
@@ -3447,6 +3450,13 @@ export default function GoddessBody() {
             </div>
           </div>
         )}
+
+        {/* ── Footer ── */}
+        <div style={{textAlign:"center",padding:"24px 20px 32px",borderTop:"1px solid #1a0824",marginTop:16}}>
+          <p style={{fontSize:9,color:"#2a0a3a",letterSpacing:2,textTransform:"uppercase",fontFamily:"'Jost',sans-serif"}}>
+            Created by Martyy B Media
+          </p>
+        </div>
 
       </div>
     </div>
