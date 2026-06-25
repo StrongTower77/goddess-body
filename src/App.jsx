@@ -87,6 +87,7 @@ const TS = {
   "Lower Body Mastery":      {bg:"#200420",border:"#8a1888",badge:"#D050C8",icon:"🍑"},
   "Core Mastery":            {bg:"#041c10",border:"#1a8a50",badge:"#40D880",icon:"💪🏾"},
   "Full Body Mastery":       {bg:"#1c1808",border:"#8a6820",badge:"#E0C04C",icon:"⚡"},
+  "Lower Body Legacy":       {bg:"#04201c",border:"#1a8a6a",badge:"#40D8A8",icon:"🍑"},
   "Upper Body Legacy":       {bg:"#041818",border:"#1a7878",badge:"#40C8C8",icon:"💪🏾"},
   "Full Body Legacy":        {bg:"#1c1a08",border:"#8a7020",badge:"#E0CC4C",icon:"⚡"},
   "Lower Body Transformation":{bg:"#240420",border:"#9a1890",badge:"#E050D8",icon:"🍑"},
@@ -2849,12 +2850,12 @@ export default function GoddessBody() {
   const GOLD   = "#C9A84C";
 
   if (!isAuth) return (
-    <div style={{minHeight:"100vh",width:"100%",background:"#0a0312",display:"flex",alignItems:"center",justifyContent:"center",padding:"24px",fontFamily:"'Jost',sans-serif",overflowX:"hidden"}}>
+    <div style={{minHeight:"100vh",width:"100vw",maxWidth:"100%",background:"#0a0312",display:"flex",alignItems:"center",justifyContent:"center",padding:"24px",fontFamily:"'Jost',sans-serif",overflowX:"hidden",boxSizing:"border-box"}}>
       <style>{`@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}`}</style>
-      <div style={{width:"100%",maxWidth:380,display:"flex",flexDirection:"column",alignItems:"center"}}>
+      <div style={{width:"100%",maxWidth:340,display:"flex",flexDirection:"column",alignItems:"center",boxSizing:"border-box"}}>
         <img src="/logo.png" alt="Goddess Body" style={{width:90,height:90,borderRadius:18,objectFit:"cover",marginBottom:24,boxShadow:"0 8px 32px rgba(139,47,168,0.4)"}}/>
-        <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:11,letterSpacing:6,color:GOLD,textTransform:"uppercase",marginBottom:8}}>Made for Coco Love · M.J. Colbert</p>
-        <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:600,color:"#f0ebe0",marginBottom:4,textAlign:"center",lineHeight:1.1}}>Goddess Body</h1>
+        <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:10,letterSpacing:1.5,color:GOLD,textTransform:"uppercase",marginBottom:8,textAlign:"center",width:"100%",whiteSpace:"nowrap"}}>Made for Coco Love · M.J. Colbert</p>
+        <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:600,color:"#f0ebe0",marginBottom:4,textAlign:"center",lineHeight:1.1,width:"100%"}}>Goddess Body</h1>
         <p style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontStyle:"italic",color:PINK,marginBottom:36}}>Fitness Plan</p>
         <div style={{width:"100%",animation:authShake?"shake 0.5s ease":"none"}}>
           <div style={{position:"relative",width:"100%",marginBottom:8}}>
@@ -2884,10 +2885,10 @@ export default function GoddessBody() {
           letterSpacing:0.5,cursor:"pointer",boxShadow:"0 4px 20px rgba(201,168,76,0.35)"}}>
           👑 Enter
         </button>
-        <p style={{fontSize:10,color:"#3a1a4a",marginTop:24,letterSpacing:1,textTransform:"uppercase",textAlign:"center"}}>
+        <p style={{fontSize:10,color:"#3a1a4a",marginTop:24,letterSpacing:1,textTransform:"uppercase",textAlign:"center",width:"100%",lineHeight:1.5}}>
           Private · Custom Plan · Coco Love The Goddess
         </p>
-        <p style={{fontSize:9,color:"#2a0a3a",marginTop:12,letterSpacing:1,textTransform:"uppercase",textAlign:"center"}}>
+        <p style={{fontSize:9,color:"#2a0a3a",marginTop:12,letterSpacing:1,textTransform:"uppercase",textAlign:"center",width:"100%"}}>
           Created by Martyy B Media
         </p>
       </div>
